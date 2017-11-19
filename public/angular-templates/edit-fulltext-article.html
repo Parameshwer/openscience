@@ -1,0 +1,106 @@
+<script>
+$(document).ready(function(){
+tinymce.init({
+  selector: '.journal-post-editor',
+  height: 500,
+  width: 500,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});
+});
+</script>
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">FullText Article</h1>
+			<div class="create-btn text">
+				<a href="#/FulltextArticles">Back to Fulltext Articles</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" enctype="multipart/form-data" name="fulltext_article_form" method="post" novalidate
+					>	
+						<div class="form-group">
+							<label for="fulltext_article_name" class="col-sm-3 control-label">Fulltext Article name</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="fulltext_article.post_title" id="post_title" name="post_title" required>								
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fulltext_article" class="col-sm-3 control-label">Page title</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="fulltext_article.post_browser_title" id="post_browser_title" name="post_browser_title" required>								
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fulltext_article" class="col-sm-3 control-label">Page meta keywords</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="fulltext_article.post_meta_keywords" id="post_meta_keywords" name="post_meta_keywords" required>								
+							</div>
+						</div>
+											
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Category Name</label>
+							<div class="col-sm-9">
+								<select class="form-control" name="category_id" ng-model="fulltext_article.category_id">									
+									<option value="10">Medical</option>
+									<option value="20">Biotechnology</option>
+									<option value="30">Biology</option>
+									<option value="40">Pharmaceutical</option>
+								</select>		
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
+							<div class="col-sm-9">
+								  <select class="form-control" ng-model="fulltext_article.journal_id" name="journal_id">
+								  <optgroup label="Medical">
+								    <option ng-repeat="j in journal_info" ng-selected="fulltext_article.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Medical'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Biotechnology">
+								    <option ng-repeat="j in journal_info" ng-selected="fulltext_article.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biotechnology'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Biology">
+								    <option ng-repeat="j in journal_info" ng-selected="fulltext_article.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biology'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Pharmaceutical">
+								    <option ng-repeat="j in journal_info" ng-selected="fulltext_article.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Pharmaceutical'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>								  
+								</select>
+								<span style="color:red" ng-show="journal_post_form.journal_id.$dirty"><span ng-show="journal_post_form.journal_id.$error.required">This is required.</span></span>
+							</div>
+						</div>
+						<div class="form-group" required="">
+							<label for="banner_image" class="col-sm-3 control-label">Fulltext Description</label>
+							<div class="col-sm-9">								
+ 								<div class="row">
+ 									<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+										<text-angular name="post_content" ng-model="fulltext_article.post_content"></text-angular>
+									</div>
+ 								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">
+								<input type="submit" ng-click="saveFulltext(fulltext_article)" name="insert" value="Save" class="btn btn-primary">
+								<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+							</div>
+						</div>
+					</form>						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

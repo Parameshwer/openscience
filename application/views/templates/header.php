@@ -95,7 +95,7 @@
 						<?php //echo $this->uri->segment(1); ?>
 							<ul>
 								<li class="<?php echo (($this->uri->segment(1) == '')?'current':''); ?>"><a href="<?php echo base_url(); ?>"><div> HOME </div> </a> </li> 
-								<li class="<?php echo (($this->uri->segment(1) == 'about-us')?'current':''); ?>"><a href="<?php echo base_url(); ?>about_us"><div> ABOUT US </div></a></li>
+								<li class="<?php echo (($this->uri->segment(1) == 'about_us')?'current':''); ?>"><a href="<?php echo base_url(); ?>about_us"><div> ABOUT US </div></a></li>
 								<li class="<?php echo (($this->uri->segment(1) == 'journals')?'current':''); ?>"><a href="<?php echo base_url(); ?>journals"><div> JOURNALS </div></a></li>
 								<li class="<?php echo (($this->uri->segment(1) == 'submit-manuscript')?'current':''); ?>"><a href="<?php echo base_url(); ?>submit-manuscript"><div> SUBMIT MANUSCRIPT </div></a></li>
 								<li class="<?php echo (($this->uri->segment(1) == 'membership')?'current':''); ?>"><a href="<?php echo base_url(); ?>membership"><div> MEMBERSHIP </div></a></li>

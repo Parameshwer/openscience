@@ -13701,3 +13701,9 @@ p.pdf_para .icon-pdf {
 .icon-pdf {
     background: url(images/pdf_icon.png) no-repeat;
 }
+.membership-page ul {
+	padding: 0 0 30px 15px;
+}
+.membership-page table th,.membership-page table td {
+	padding: 10px;
+}

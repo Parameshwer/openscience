@@ -54,5 +54,11 @@ $route['about-us'] = "about_us";
 $route['submit-manuscript'] = "submit_manuscript";
 $route['contact-us'] = "contact_us";
 $route['latest-articles'] = "latest_articles";
+$route['admin'] = 'admin';
+$route['login'] = 'login/index';
+
+
+
+
 /*$route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;*/

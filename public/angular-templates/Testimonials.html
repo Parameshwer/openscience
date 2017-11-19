@@ -1,0 +1,33 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Testimonials</h1>
+			<div class="create-btn"><a href="#/EditTestimonial/0" class="btn btn-primary">Create Testimonials</a></div>
+			<div>
+			<div class="avens-ui-grid">
+				<!-- <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div> -->
+				<div class="loader" ng-if="spinner">Loading...</div>
+				<div ng-if="!spinner && gridOptions1" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
+			</div>
+			<!-- <div ng-if="testimonials">
+					
+				<table class="table table-striped">
+				<tbody>
+				<tr><th>User Name</th><th>Testimonial Info</th><th>User Image</th><th>User Designation</th><th>User University</th><th>Created On</th><th></th><th></th></tr></tbody>
+				<tr ng-repeat="(key,val) in testimonials">				
+				{{val}}
+				<td>{{val.user_name}}</td><td>{{val.testimonial_desc}}</td><td><img width="100px" height="100px" src="http://www.avensonline.org/wp-content/uploads/{{val.user_img}}" class="" alt="{{val.user_name}}" /></td><td>{{val.user_desig}}</td>
+				<td>{{val.user_university}}</td>
+				<td>{{val.created_date}}</td>
+				<td><a href="#/EditTestimonial/{{val.id}}">Edit</a></td>
+				<td><a href="">Delete</a></td>
+				</tr>
+				</table>
+				</div>
+				<div ng-show="latest_articles.length == '0'">There are no Latest Articles found.</div> -->
+			</div>
+		</div>
+	</div>
+</div>

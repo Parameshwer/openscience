@@ -1,0 +1,34 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Create Main Category</h1>
+			<div class="create-btn text">
+				<a href="#/HomeLatestUpdates">Back</a>				
+			</div>
+			<div>
+				<div class="form-box">
+					<form class="form-horizontal" name="myForm" novalidate>
+						<div class="form-group">
+							<label for="category_name" class="col-sm-4 control-label">Latest Updates Description</label>
+							<div class="col-sm-8">															
+								<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+									<text-angular name="htmlcontent" ng-model="latest_home_update.latest_update_description"></text-angular>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">        
+							<button ng-click="saveLatestUpdate(latest_home_update)" class="btn btn-primary">{{buttonText}}</button>
+							<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

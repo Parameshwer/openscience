@@ -1,0 +1,56 @@
+<script>
+$(document).ready(function(){
+tinymce.init({
+  selector: '.journal-post-editor',
+  height: 1500,
+  width: 700,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});
+});
+</script>
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Editorial Board Member Details</h1>
+			<div class="create-btn text">
+				<a href="#/JournalPosts">Back to Journals Pages</a>				
+			</div>
+			<div class="form-box form-horizontal">
+			<div class="form-group">
+				<label for="issn_number" class="col-sm-4 control-label">Post Slug</label>							
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="eb_content" name="eb_content" ng-model="ebmember.post_slug">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="issn_number" class="col-sm-4 control-label">Journal Slug</label>							
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="journal_slug" name="eb_content" ng-model="ebmember.journal_slug">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="issn_number" class="col-sm-12 control-label">Eb member content</label>							
+				<div class="col-sm-12">
+				<div class="row">
+					<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+						<text-angular name="post_content" ng-model="ebmember.post_content"></text-angular>
+					</div>
+				</div>					
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

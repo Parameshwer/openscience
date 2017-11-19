@@ -1,0 +1,31 @@
+<div id="main-wrapper">
+	<div ng-include="'public/angular-templates/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'public/angular-templates/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Collaborations Enquires</h1>			
+			<div>
+			<!-- <div ng-if="collaborations">
+				<table class="table table-striped">
+				<tbody>				
+				<tr><th>Contact Person</th><th>Email</th><th>University Name</th><th>Mail Address</th><th>Country</th><th>Telephone</th><th>Website Url</th><th>Number of members at University department</th><th>Sent Date</th></tr></tbody>
+				<tr ng-repeat="(key,val) in collaborations">				
+				{{val}}
+				<td>{{val.contact_person}}</td><td>{{val.email}}</td><td>{{val.univer_name}}</td><td>{{val.mail_address}}</td>
+				<td>{{val.country}}</td>
+				<td>{{val.telephone}}</td>				
+				<td>{{val.wesite_url}}</td>				
+				<td>{{val.mem_univer_dept}}</td>				
+				<td>{{val.created_date}}</td>				
+				</tr>
+				</table>
+				</div>
+				<div ng-show="collaborations.length == '0'">There are no Latest Articles found.</div> -->
+				<div class="avens-ui-grid">
+				<div class="loader" ng-if="spinner">Loading...</div>
+<div ng-if="!spinner && gridOptions1" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
+</div>
+			</div>
+		</div>
+	</div>
+</div>

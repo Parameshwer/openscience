@@ -1,0 +1,111 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Create Journal</h1>
+			<div class="create-btn text">
+				<a href="#/Journals">Back to Journals</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" id="journal_form" enctype="multipart/form-data" method="post"  name="myForm" novalidate>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
+							<div class="col-sm-9">
+							<input type="text" ng-model="main_journal.journal_name" required class="form-control" id="journal_name" name="journal_name" ng-blur="convertToJournalSlug(this)" required >
+							<span style="color:red" ng-show="myForm.journal_name.$dirty"><span ng-show="myForm.journal_name.$error.required">Journal name is required.</span></span>
+								<!-- <input type="hidden" name="id" value=""> -->
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Journal url slug</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="main_journal.journal_url_slug" id="journal_url_slug" name="journal_url_slug" required="" value="">                        
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">Issn Number</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="main_journal.issn_number" id="issn_number" name="issn_number" value="">
+							</div>
+						</div>
+				<!-- <div class="form-group">
+				<label for="banner_image" class="col-sm-3 control-label">Banner Image</label>
+				<div class="col-sm-9">
+				<input type="text" name="banner_image" id="banner_image" class="regular-text" value="">
+				<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+
+				</div>
+				</div>
+				<div class="form-group">
+				<label for="sidebar_image" class="col-sm-3 control-label">Sidebar Image</label>
+				<div class="col-sm-9">
+				<input type="text" name="sidebar_image" id="sidebar_image" class="regular-text" value="">
+				<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+
+				</div>
+				</div> -->
+				<div class="form-group">
+					<label for="journal_meta_keywords" class="col-sm-3 control-label">Journal Meta Keywords</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="main_journal.journal_meta_keywords" id="journal_meta_keywords" name="journal_meta_keywords" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="journal_ic_value" class="col-sm-3 control-label">Journal Ic Value</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="journal_ic_value" name="journal_ic_value" ng-model="main_journal.journal_ic_value" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="main_category" class="col-sm-3 control-label">Main Category</label>
+					<div class="col-sm-9">
+
+						<!-- <select class="form-control" name="main_category_id" ng-model="main_journal.main_category_id" data-ng-options="o.name for o in options"></select> -->
+						<select class="form-control" name="main_category_id" ng-model="main_journal.main_category_id">
+							<option value="">Selecr Journal</option>
+							<option value="10">Medical</option>
+							<option value="20">Biotechnolgy</option>
+							<option value="30">Pharmaseutical</option>
+							<option value="40">Biology</option>
+						</select>
+						<span style="color:red" ng-show="myForm.main_category_id.$dirty"><span ng-show="myForm.main_category_id.$error.required">Main category is required.</span></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="journal_description" class="col-sm-3 control-label">Journal Description</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="main_journal.journal_description" id="journal_description" name="journal_description" value="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="journal_description" class="col-sm-3 control-label">Journal banner Image</label>
+						<div class="col-sm-9 banner-img-box">
+							<!-- <input type="file" class="form-control" ng-model="main_journal.banner_image" id="journal_banner_img" name="journal_banner_img" value="" ng-change="uploadImage(main_journal)"> -->
+							<input type="text" class="form-control" ng-model="main_journal.banner_image" id="journal_banner_img" name="journal_banner_img" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="journal_description" class="col-sm-3 control-label">Journal Sidebar Image</label>
+						<div class="col-sm-9 sidebar-img-box">
+							<!-- <input type="file" class="form-control" ng-model="main_journal.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img" value="" ng-change="uploadImage(main_journal)"> -->
+							<input type="text" class="form-control" ng-model="main_journal.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img" >
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-10">
+							<!-- <input type="submit" name="insert" value="Save" class="btn btn-primary"> -->
+							<!-- ng-disabled="!myForm.journal_name.$dirty || myForm.journal_name.$invalid || !myForm.main_category_id.$dirty || myForm.main_category_id.$invalid" --> 
+							<button ng-click="saveJournal(main_journal)" class="btn btn-primary">{{buttonText}}
+							</button><span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+						</div>
+					</div>
+				</form>						
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>

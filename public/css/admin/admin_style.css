@@ -1,0 +1,214 @@
+.page-width {
+	width: 1000px;
+	margin:0 auto;
+}
+
+/*** dashboard page css ***/
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "open sans";
+}
+
+.navbar {
+	border-radius: 0;
+}
+#main-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.nav-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.main-wrap {
+	position: absolute;
+	top: 52px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.sidebar-bar {
+	width: 200px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	border-right: 1px solid #cccccc;
+}
+.sidebar-bar .sub-nav li {list-style: none;}
+.sidebar-bar .sub-nav li a {padding: 5px 0;display: inline-block;}
+.main-content {
+	position: absolute;
+	top: 0;
+	left: 200px;
+	bottom: 0;
+	right: 0;
+	overflow: auto;
+	padding: 0;
+}
+.main-content h1 {
+	margin: 0 0 10px;	
+	border-bottom: 1px solid #ccc;
+	font-weight: normal;
+	height: 55px;
+	font-size: 20px;
+	padding: 15px 0 0 10px;
+}
+.main-content .main-content-inner {
+  padding: 12px;
+}
+.form-box {
+	width: 540px;
+}
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.count-div p {
+	font-size: 20px;
+}
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/* Sidebar navigation */
+.nav-sidebar > li > span > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+.create-btn {
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+	top: 7px;
+}
+.create-btn.text {top: 16px;}
+/*
+.avens-ui-grid .ui-grid-row:nth-child(odd) .ui-grid-cell,
+.avens-ui-grid .ui-grid-row:nth-child(even) .ui-grid-cell {
+  height: 100px !important;
+}*/
+.avens-ui-grid .ui-grid-viewport .ui-grid-cell-contents {
+	white-space: normal;
+}
+
+/*.avens-ui-grid .ui-grid-header-cell .ui-grid-cell {
+	line-height: 80px;
+	height: 40px;
+	margin-top: 20px;
+}*/
+
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+}
+.loader {
+  font-size: 10px;  
+  text-indent: -9999em;
+  border-top: 0.2em solid  #00a9e2;
+  border-right: 0.2em solid  #00a9e2;
+  border-bottom: 0.2em solid rgba(255, 255, 255, 0.2);
+  border-left: 0.2em solid #00a9e2;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+  position: absolute;  
+  top:50%;
+  margin-top: -2em;
+  left: 50%;
+  margin-left: -2em;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.main-content .grid .modify-icon {
+  padding: 0 5px;
+}
+.main-content .server-response {position: relative;overflow: hidden;margin-left: 50px;}
+.main-content .server-response .loader {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid #f9f9f9;
+  border-right: 2px solid #00a9e2;
+  border-bottom: 2px solid #00a9e2;
+  border-top: 2px solid #00a9e2;
+  top: 50%;
+  margin-top: -10px;
+  margin-left: -30px;
+}
+
+
+.create-btn .avens-grid-search {
+  float: left;
+  margin-top: 1px;
+  margin-right: 9px;
+  width: 350px;
+}
+.nav > li > span a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}

@@ -1,0 +1,68 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Select Journal Articles</h1>
+			<div class="create-btn text">
+				<a href="#/Journals/medical">Back to Journal Archives</a>				
+			</div>
+			<div class="create-btn"><a href="#/EditJournalArchive/0"class="btn btn-primary">Create Journal Archive</a></div>
+			<div>				
+				<form class="form-inline">
+					<div class="form-group">
+					<label for="category_name">Journal Name</label>											
+						<select id="journal_name_select" class="form-control" ng-model="j_info.journal_id" name="journal_id">							<option value="">Select Journal</option>
+							  <optgroup label="Medical">
+							    <option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Medical'" value="{{j.id}}">{{j.journal_name}}</option>    
+							  </optgroup>
+							  <optgroup label="Biotechnology">
+							    <option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biotechnology'" value="{{j.id}}">{{j.journal_name}}</option>    
+							  </optgroup>
+							  <optgroup label="Biology">
+							    <option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biology'" value="{{j.id}}">{{j.journal_name}}</option>    
+							  </optgroup>
+							  <optgroup label="Pharmaceutical">
+							    <option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Pharmaceutical'" value="{{j.id}}">{{j.journal_name}}</option>    
+							  </optgroup>								  
+							</select>												
+					</div>
+					<div class="form-group">
+					<label for="category_name" class="control-label">Archive Type</label>						
+					<select class="form-control" name="archive_in" id="archive_in" ng-model="j_info.archive_in">
+						<option value="">Select Archive Type</option>
+						<option ng-repeat="a in archive_type" ng-selected="a.id==archive_info.archive_in?'selected':''" value="{{a.id}}">{{a.name}}</option>
+					</select>						
+					</div>
+					<button ng-click="GetJournalArchives(j_info)" class="btn btn-primary" >Get Archives</button>				
+				</form>							
+				<!-- <div ng-if="journal_posts_archives">
+					<table class="table table-striped" style="margin-top: 15px;">
+					<tbody>
+						<tr><th>Journal Name</th><th>Category Name</th><th>Archive Description</th><th>Archive Volume</th><th>Archive In</th><th>Archive Year</th><th>Edit</th><th>Delete</th><!-- <th>Move Archive</th> --></tr>
+						<!---<tr ng-repeat="(key,val) in journal_posts_archives">				
+							<td>{{val.journal_name}}</td>
+                                                        <td>{{val.category_name}}</td>
+                                                        <td ng-bind-html="val.archive_desc"></td>
+                                                        <td>{{val.archive_volume}}</td>
+							<td ng-if="val.archive_in == '1'">Article In Press</td>
+							<td ng-if="val.archive_in == '2'">Current Issue</td>
+							<td ng-if="val.archive_in == '3'">Archive</td>
+							<td ng-if="val.archive_in == '4'">Special Issues</td>
+							<td>{{val.archive_year}}</td>
+                                                        
+							<td><a href="#/EditJournalArchive/{{val.id}}">Edit</a></td>
+							<td><a href="">Delete</a></td>
+							<!-- <td><a href="">--</a></td> -->
+						<!--</tr>
+					</tbody>
+				</table>
+			</div> -->
+			<div class="loader" ng-if="spinner">Loading...</div>
+			<!-- <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div> -->
+			<div ng-if="!spinner && gridOptions1" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 			
+			<!-- <div class="text-center" style="margin-top: 15px;" ng-show="journal_posts_archives.length == '0'">There are no Journal Pages found.</div>	 -->
+			</div>
+		</div>
+	</div>
+</div>

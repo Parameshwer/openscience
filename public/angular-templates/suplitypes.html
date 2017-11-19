@@ -1,0 +1,26 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+		<h1 class="page-header">Journal volumes</h1>
+			<div class="create-btn"><a href="#/EditSuplitype/0" class="btn btn-primary">Create Supli Type</a></div>
+			<div>
+			
+				<div ng-if="journal_volumes">
+
+					<table class="table table-striped">
+				<tbody>
+				<tr><th>volume Name</th></tr></tbody>
+				<tr ng-repeat="(key,val) in journal_volumes">				
+				{{val}}
+				<td>{{val.volume_name}}</td>				
+				</tr>
+				</table>
+
+				</div>
+				<div ng-show="journal_volumes.length == '0'">There are no Journal Volumes found.</div>
+			</div>
+		</div>
+	</div>
+</div>

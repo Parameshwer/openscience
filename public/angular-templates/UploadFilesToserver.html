@@ -1,0 +1,35 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Upload Files</h1>			
+			<div>			
+			<!-- <div class="form-group" style="margin-left: 10px">
+				<div class="radio">
+					<label><input type="radio" name="upload_radio" ng-model="upload_type">Upload files to wp content</label>
+				</div>
+				<div class="radio">
+					<label><input type="radio" name="upload_radio" ng-model="upload_type" value="files_to_fulltext">Upload files to fulltext folder</label>
+				</div>
+			</div> -->
+			<div class="row">
+				<div class="col-sm-6">
+					<strong>Upload Files to Wp-content</strong><br>
+					<div id="avens-to-server" uploads-files-to-server></div>
+				</div>
+				<div class="col-sm-6">
+					<strong>Upload Files to Fulltext Wp-content</strong><br>
+					<div id="fulltext-server" uploads-files-to-server></div>
+				</div>
+			</div>
+			<strong>Uloaded Files</strong>			
+			<div class="avens-ui-grid">							
+				<div class="loader" ng-if="spinner">Loading...</div>
+				<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
+			</div>	
+			<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,87 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Create Main Category</h1>
+			<div class="create-btn text">
+				<a href="#/MainCategories">Back to Main categories</a>				
+			</div>
+			<div>
+				<div class="form-box">
+					<form class="form-horizontal" name="myForm">
+						<form class="form-horizontal" id="journal_form" enctype="multipart/form-data" method="post" novalidate="novalidate">
+							<div class="form-group">
+								<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
+								<div class="col-sm-9">
+								<input type="text" class="form-control" id="journal_name" name="journal_name" required="" value="">
+									<input type="hidden" name="id" value="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="journal_name" class="col-sm-3 control-label">Journal url slug</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="journal_url_slug" name="journal_url_slug" required="" value="">                        
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="issn_number" class="col-sm-3 control-label">Issn Number</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="issn_number" name="issn_number" value="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="banner_image" class="col-sm-3 control-label">Banner Image</label>
+								<div class="col-sm-9">
+									<input type="text" name="banner_image" id="banner_image" class="regular-text" value="">
+									<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sidebar_image" class="col-sm-3 control-label">Sidebar Image</label>
+								<div class="col-sm-9">
+									<input type="text" name="sidebar_image" id="sidebar_image" class="regular-text" value="">
+									<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="journal_meta_keywords" class="col-sm-3 control-label">Journal Meta Keywords</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="journal_meta_keywords" name="journal_meta_keywords" value="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="journal_ic_value" class="col-sm-3 control-label">Journal Ic Value</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="journal_ic_value" name="journal_ic_value" value="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="main_category" class="col-sm-3 control-label">Main Category</label>
+								<div class="col-sm-9">
+
+									<select class="form-control" name="main_category">
+										<option value="10">Medical</option><option value="20">Biotechnology</option><option value="30">Biology</option><option value="40">Pharmaceutical</option>        </select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="journal_description" class="col-sm-3 control-label">Journal Description</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="journal_description" name="journal_description" value="">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-10">
+										<input type="submit" name="insert" value="Save" class="btn btn-primary">
+									</div>
+								</div>
+							</form>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

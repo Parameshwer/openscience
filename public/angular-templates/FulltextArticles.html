@@ -1,0 +1,43 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Fulltext Articles</h1>
+			<div class="create-btn text">
+				<a href="#/Journals/medical">Back to Journal Posts</a>				
+			</div>
+                        <div class="fulltext-template" style="position:absolute;right:724px;top:12px;"><a target="_blank" href="view-source:http://www.avensonline.org/admin1/angular_pages/fulltext-template.html">Fulltext Template</a></div>
+                        <div class="fulltext-template" style="position:absolute;right:560px;top:12px;"><a target="_blank" href="http://www.avensonline.org/fulltextarticles/sample-fulltext-article.html">View Fulltext Template</a></div>
+			<div class="create-btn">
+				<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="searchGrid(search_value)" />
+				<a href="#/EditFulltextArticle/0"class="btn btn-primary">Create Fulltext Article</a>
+			</div>
+			<div>			
+				<!---<div ng-if="fulltext_Articles">
+					<table class="table table-striped">					
+					<tbody>
+						<tr><th>Post Name</th><th>Updated date</th><th>view article</th><th>Edit</th><th>Delete</th></tr>
+						<tr ng-repeat="(key,val) in fulltext_Articles">								
+							<td>{{val.post_title}}</td>
+							<!-- <td ng-bind-html="val.post_content"></td> -->
+							<!--<td>{{val.post_date}}</td>
+							<td><a target="_blank" href="http://www.avensonline.org/fulltextarticles/{{val.post_title}}.html" target="_blank">view article</a></td>
+
+							<td><a href="#/EditFulltextArticle/{{val.ID}}">Edit</a></td>
+							<!-- <td><a ng-click="deleteFulltextArticle({{val.ID}})">Delete</a></td> -->
+							<!--<td><a>Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div ng-show="fulltext_Articles.length == '0'">There are no Eb members found.</div>-->
+			<div class="avens-ui-grid">
+				<div class="loader" ng-if="spinner">Loading...</div>
+<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
+			</div>
+			<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>	
+		</div>
+	</div>
+</div>
+</div>

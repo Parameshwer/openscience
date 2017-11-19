@@ -1,0 +1,33 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Create Main Category</h1>
+			<div class="create-btn text">
+				<a href="#/MainCategories">Back to Main categories</a>				
+			</div>
+			<div>			
+				<div class="form-box">
+					<form class="form-horizontal" name="myForm" novalidate>
+						<div class="form-group">
+							<label for="category_name" class="col-sm-3 control-label">Category Name</label>
+							<div class="col-sm-9">
+								<input name="name" ng-model="main_category.category_name" type= "text" class= "form-control" placeholder="Your name" required>
+								<span style="color:red" ng-show="myForm.name.$dirty"><span ng-show="myForm.name.$error.required">Category name is required.</span></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">        
+							<button ng-disabled="!myForm.name.$dirty || myForm.name.$invalid" ng-click="saveCategory(main_category)" class="btn btn-primary">{{buttonText}}</button>
+							<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

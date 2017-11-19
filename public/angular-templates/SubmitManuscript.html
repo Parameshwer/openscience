@@ -1,0 +1,30 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Submit Manuscript Enquires</h1>
+
+			<div>
+<!-- 			<div ng-if="SubmitManuscript">
+				<table class="table table-bordered">
+				<tbody>				
+				<tr><th>Uploaded Date</th><th>First Name</th><th>Email</th><th>Alternate Email</th><th>Journal</th><th>Article</th><th>Country</th><th style="width:200px">Attachment</th></tr></tbody>
+				<tr ng-repeat="(key,val) in SubmitManuscript">				
+				{{val}}
+				<td>{{val.created_date}}</td>
+				<td>{{val.firstname}}</td><td>{{val.email}}</td><td>{{val.alter_email}}</td><td>{{val.journal}}</td><td>{{val.article}}</td>
+				<td>{{val.country}}</td><td><a href="{{base_url}}/public/images/{{val.uploadfile}}">{{val.uploadfile}}</a></td>
+                                
+				</tr>
+				</table>
+				</div>
+				<div ng-show="SubmitManuscript.length == '0'">There are no Latest Articles found.</div> -->
+				<div class="avens-ui-grid">
+				<div class="loader" ng-if="spinner">Loading...</div>
+<div ng-if="!spinner && gridOptions1" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div>
+</div> 	
+			</div>
+		</div>
+	</div>
+</div>

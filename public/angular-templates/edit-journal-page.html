@@ -1,0 +1,151 @@
+<script>
+	$(document).ready(function(){
+		tinymce.init({
+			selector: '.journal-post-editor',
+			height: 500,
+			width: 700,
+			plugins: [
+			'advlist autolink lists link image charmap print preview anchor',
+			'searchreplace visualblocks code fullscreen',
+			'insertdatetime media table contextmenu paste code'
+			],
+			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+			content_css: [
+			'//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+			'//www.tinymce.com/css/codepen.min.css'
+			]
+		});
+	});
+</script>
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Create Journal page</h1>
+			<div class="create-btn text">
+				<a href="#/JournalPosts">Back to Journals Pages</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" enctype="multipart/form-data" name="journal_post_form" method="post" novalidate
+					>					
+					<div class="form-group">
+						<label for="issn_number" class="col-sm-3 control-label">Post Name*</label>
+						<div class="col-sm-9">
+							<!-- 								<input type="text" class="form-control" ng-model="main_page.post_name" id="journal_post_name" name="journal_post_name" ng-blur="convertToPostSlug(this)" required> -->
+							<input type="text" class="form-control" ng-model="main_page.post_name" id="journal_post_name" name="journal_post_name" required>
+
+							<span style="color:red" ng-show="journal_post_form.journal_post_name.$dirty"><span ng-show="journal_post_form.journal_post_name.$error.required">Post name is required.</span></span>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="issn_number" class="col-sm-3 control-label">Post Slug</label>							
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="journal_post_slug" name="journal_post_slug" ng-model="main_page.post_slug">
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="journal_name" class="col-sm-3 control-label">Main Category Name</label>
+						<div class="col-sm-9">
+							<select class="form-control" name="category_id" ng-model="main_page.category_id">
+
+								<option value="10">Medical</option>
+								<option value="20">Biotechnology</option>
+								<option value="30">Biology</option>
+								<option value="40">Pharmaceutical</option>
+							</select>
+							<span style="color:red" ng-show="journal_post_form.category_id.$dirty"><span ng-show="journal_post_form.category_id.$error.required">This is required.</span></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
+						<div class="col-sm-9">
+							<!-- <select class="form-control" ng-model="myColor" ng-options="journal_info.journal_name group by journal_info.category_name for journal_info in journal_info"></select>	 -->						
+<!-- <select class="form-control" name="category_id">
+<option val="">Select Category</option>
+<option value="10">Medical</option>
+<option value="20">Biotechnology</option>
+<option value="30">Biology</option>
+<option value="40">Pharmaceutical</option>
+</select> -->
+
+<!-- <select class="form-control" ng-model="main_page.journal_id" ng-change="convertToJournalSlug(main_page.journal_id)" name="journal_id"> -->
+<select class="form-control" ng-model="main_page.journal_id" name="journal_id">
+	<optgroup label="Medical">
+		<option ng-repeat="j in journal_info" ng-selected="main_page.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Medical'" value="{{j.id}}">{{j.journal_name}}</option>    
+	</optgroup>
+	<optgroup label="Biotechnology">
+		<option ng-repeat="j in journal_info" ng-selected="main_page.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biotechnology'" value="{{j.id}}">{{j.journal_name}}</option>    
+	</optgroup>
+	<optgroup label="Biology">
+		<option ng-repeat="j in journal_info" ng-selected="main_page.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biology'" value="{{j.id}}">{{j.journal_name}}</option>    
+	</optgroup>
+	<optgroup label="Pharmaceutical">
+		<option ng-repeat="j in journal_info" ng-selected="main_page.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Pharmaceutical'" value="{{j.id}}">{{j.journal_name}}</option>    
+	</optgroup>								  
+</select>
+<span style="color:red" ng-show="journal_post_form.journal_id.$dirty"><span ng-show="journal_post_form.journal_id.$error.required">This is required.</span></span>
+</div>
+</div>
+<!-- <div class="form-group">
+<label for="issn_number" class="col-sm-3 control-label">Jounral Slug</label>
+<div class="col-sm-9">
+<input type="text" class="form-control" id="journal_slug" name="journal_slug"  ng-model="main_page.journal_slug">
+
+</div>
+</div> -->
+<div class="form-group" required="">
+	<label for="banner_image" class="col-sm-3 control-label">Post Content</label>
+	<div class="col-sm-9">								
+		<!-- {{textarea_text}} -->
+		<!-- <textarea ui-tinymce="tinymceOptions" name="post_content" ng-model="main_page.post_content"></textarea> -->
+		<div class="row">
+<!-- <div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+<text-angular name="post_content" ng-model="main_page.post_content">
+</text-angular>
+</div> -->
+<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+	<text-angular name="post_content" ng-model="main_page.post_content"></text-angular>
+</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+	<label for="post_title_tag" class="col-sm-3 control-label">Post Title Tag</label>
+	<div class="col-sm-9">
+		<input type="text" class="form-control" id="post_title_tag" name="post_title_tag"  ng-model="main_page.post_title_tag">
+
+	</div>
+</div>
+
+<div class="form-group">
+	<label for="issn_number" class="col-sm-3 control-label">Post Keywords</label>
+	<div class="col-sm-9">
+		<input type="text" class="form-control" id="post_keywords" name="post_keywords"  ng-model="main_page.post_keywords">
+
+	</div>
+</div>
+<div class="form-group">
+	<label for="issn_number" class="col-sm-3 control-label">Post Meta Description</label>
+	<div class="col-sm-9">
+		<textarea class="form-control" id="post_meta_description" name="post_meta_description"  ng-model="main_page.post_meta_description"></textarea>
+
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-offset-3 col-sm-10">
+		<input type="submit" ng-click="saveJournalPage(main_page)" name="insert" value="Save" class="btn btn-primary">
+		<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+	</div>
+</div>
+</form>						
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

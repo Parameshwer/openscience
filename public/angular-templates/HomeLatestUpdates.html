@@ -1,0 +1,18 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Home Latest Updates</h1>
+			<div class="create-btn"><a ng-disabled="gridOptions1.data.length > 0" href="#/EditHomeLatestUpdate/0" class="btn btn-primary">Create Journal Home Update</a></div>
+			<div>
+			<div class="avens-ui-grid">			
+				<!-- <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div> -->
+				<div class="loader" ng-if="spinner">Loading...</div>
+				<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
+			</div>	
+				<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>			
+			</div>
+		</div>
+	</div>
+</div>

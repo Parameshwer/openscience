@@ -1,0 +1,94 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Latest Articles</h1>
+			<div class="create-btn text">
+				<a href="#/LatestArticles">Back to Latest Articles</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" enctype="multipart/form-data" name="latest_article_form" method="post" novalidate
+					>					
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">Article Name*</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="latest_article.article_name" id="article_name" name="article_name" required>
+								
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">Pdf Link</label>							
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="pdf_link" name="pdf_link" ng-model="latest_article.pdf_link">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
+							<div class="col-sm-9">
+							<!-- <select class="form-control" ng-model="myColor" ng-options="journal_info.journal_name group by journal_info.category_name for journal_info in journal_info"></select>	 -->						
+								<!-- <select class="form-control" name="category_id">
+									<option val="">Select Category</option>
+									<option value="10">Medical</option>
+									<option value="20">Biotechnology</option>
+									<option value="30">Biology</option>
+									<option value="40">Pharmaceutical</option>
+								</select> -->
+
+								<select class="form-control" ng-model="latest_article.article_category" name="article_category">
+								  
+								  <optgroup label="Medical">
+								    <option ng-repeat="j in journal_info" ng-selected="latest_article.article_category==j.id?'selected':''" ng-if="j.category_name == 'Medical'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Biotechnology">
+								    <option ng-repeat="j in journal_info" ng-selected="latest_article.article_category==j.id?'selected':''" ng-if="j.category_name == 'Biotechnology'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Biology">
+								    <option ng-repeat="j in journal_info" ng-selected="latest_article.article_category==j.id?'selected':''" ng-if="j.category_name == 'Biology'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>
+								  <optgroup label="Pharmaceutical">
+								    <option ng-repeat="j in journal_info" ng-selected="latest_article.article_category==j.id?'selected':''" ng-if="j.category_name == 'Pharmaceutical'" value="{{j.id}}">{{j.journal_name}}</option>    
+								  </optgroup>								  
+								</select>
+								<span style="color:red" ng-show="journal_post_form.journal_id.$dirty"><span ng-show="journal_post_form.journal_id.$error.required">This is required.</span></span>
+							</div>
+						</div>					
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">Article Image</label>
+							<div class="col-sm-9">
+								<!--- <input type="text" class="form-control" id="article_image" name="article_image"  ng-model="latest_article.article_image"> -->
+<div id="upload_file_wrap">
+							<div id="global-file-upload-latest-article" global-file-upload></div>
+							<input type="hidden" class="form-control" value="{{latest_article.article_image}}" id="article_image" name="article_image">
+
+							<div ng-show={{latest_article.article_image}} class="repopulate-uploaded-file">							
+								<ul class="qq-upload-list">
+									<li><img height="100px" width="100px" src="http://www.avensonline.org/wp-content/uploads/{{latest_article.article_image}}"></li>
+									<li><p class="file-name">{{latest_article.article_image}}</p></li>
+									<li><span class="remove-file" ng-click="removeFile()"></span></li>
+								</ul>
+							</div>									
+                          </div>
+
+							</div>
+						</div>
+						<div class="form-group" required="">
+							<label for="banner_image" class="col-sm-3 control-label">Author Name</label>
+							<div class="col-sm-9">								
+								<input type="text" class="form-control" id="author_name" name="author_name" ng-model="latest_article.author_name">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">
+								<input type="submit" ng-click="saveLatestArticle(latest_article)" name="insert" value="Save" class="btn btn-primary">
+								<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+							</div>
+						</div>
+					</form>						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

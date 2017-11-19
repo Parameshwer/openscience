@@ -10,7 +10,7 @@
 
 	<div class="content-wrap"> 
 		 <div class="container clearfix"> 
-			<div class="paddingBoth-lg topmargin-sm">
+			<div class="paddingBoth-lg topmargin-sm about-us-page">
 				<p> Open Science Publications (OSP)  is an open access journal rostrum for peer reviewed, scientific literature. OSP is poised on offering researchers and research institutions all over the world with recent advances in the field of science by researchers and professionals leveraging on distinguished editors, editorial assistants and reviewers. </p>
 				
 				<p> Open Science Publications has recently assembled with 10 open access journals aiming to maintain international standards to the journals. Abstracts and full length articles (usually in both HTML and PDF format) published by OSP are user friendly and freely accessible to everyone immediately after publication, whereas the copyrights remain with the authors. </p>

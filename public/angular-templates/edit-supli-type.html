@@ -1,0 +1,33 @@
+
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Journal Volumes</h1>
+			<div class="create-btn text">
+				<a href="#/addJournal_volumes">Back to Supli Types</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" enctype="multipart/form-data" name="supli_type_form" method="post" novalidate
+					>					
+						<div class="form-group">
+						
+							<label for="issn_number" class="col-sm-3 control-label">Volume Name*</label>							
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="Journal_volume.volume_name" id="volume_name" name="volume_name" required>
+							</div>
+						</div>											
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">
+								<input type="submit" ng-click="saveJournalVolume(Journal_volume)" name="insert" value="Save" class="btn btn-primary">
+							</div>
+						</div>
+					</form>						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

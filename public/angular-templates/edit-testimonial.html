@@ -1,0 +1,78 @@
+<div id="main-wrapper">
+	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
+	<div class="main-wrap">
+		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
+		<div class="main-content">
+			<h1 class="page-header">Testimonials</h1>
+			<div class="create-btn text">
+				<a href="#/Testimonials">Back to Testimonials</a>				
+			</div>
+			<div>
+				<div class="form-box">					
+					<form class="form-horizontal" enctype="multipart/form-data" name="testimonial_form" method="post" novalidate
+					>					
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">User Name*</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="testimonial.user_name" id="user_name" name="user_name" required>
+								
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="issn_number" class="col-sm-3 control-label">Testimonial Description</label>							
+							<div class="col-sm-9">
+								<textarea type="text" class="form-control" id="testimonial_desc" name="testimonial_desc" ng-model="testimonial.testimonial_desc"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">User Image</label>
+							<div class="col-sm-9">
+								<!---<input type="text" class="form-control" ng-model="testimonial.user_img" id="user_img" name="user_img" required> --->
+
+						<div id="upload_file_wrap">
+							<div id="global-file-upload-testimonial" global-file-upload></div>
+							<input type="hidden" class="form-control" value="{{testimonial.user_img}}" id="user_img" name="user_img">
+
+							<div class="repopulate-uploaded-file">							
+								<ul class="qq-upload-list">
+									<li><img height="100px" width="100px" src="http://www.avensonline.org/wp-content/uploads/{{testimonial.user_img}}"></li>
+									<li><p class="file-name">{{testimonial.user_img}}</p></li>
+									<li><span class="remove-file" ng-click="removeFile()"></span></li>
+								</ul>
+							</div>
+									<!-- <input type="file" name="user_img" ng-model="testimonial.user_img" value="Choose Files" size="25" class="input-file" rel="0" id="user_img" onchange="angular.element(this).scope().fileNameChanged(this)"> -->
+						<!-- <div class="upload-box">
+						<input class="temp_file_upload user_img" type="hidden" name="user_img" ng-model="testimonial.user_img">
+						<img width="100px" height="100px" src="http://localhost/avens-angular/public/images/{{testimonial.user_img}}">
+						<span class="remove-img">&times;</span>
+						</div> -->
+</div>	
+
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">Journal Image</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="testimonial.user_desig" id="user_desig" name="user_desig" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="journal_name" class="col-sm-3 control-label">User University</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="testimonial.user_university" id="user_university" name="user_university" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-10">
+								<input type="submit" ng-click="saveTestimonial(testimonial)" name="insert" value="Save" class="btn btn-primary">
+								<span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
+							</div>
+						</div>
+					</form>						
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

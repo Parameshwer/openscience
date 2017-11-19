@@ -1,0 +1,8 @@
+<h1 class="page-header">Main Categories</h1>
+<div class="create-btn">
+	<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="searchGrid(search_value)" />
+	<a href="#/EditMainCategory/0" class="btn btn-primary">Create Main Category</a>
+</div>
+<div class="loader" ng-if="spinner">Loading...</div>
+<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div>
+<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>			 

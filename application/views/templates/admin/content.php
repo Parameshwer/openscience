@@ -1,2 +1,2 @@
 <body>
-<div ng-view="" id="ng-view"></div>
+<div data-ui-view=""></div>

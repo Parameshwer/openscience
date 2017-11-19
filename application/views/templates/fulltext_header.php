@@ -16,8 +16,8 @@
 <!--[if lt IE 9]>
 <script src="http://localhost/avens-angular/wp-content/themes/twentythirteen/js/html5.js"></script>
 <![endif]-->
-<title><?php echo isset($title) ? 'Avens Publishing Group - '.$title : 'Avens Publishing Group | Open Access Journals | Open Access Publications' ; ?></title>
-<meta name="description" content="<?php echo isset($title) ? 'Avens Publishing Group - '.$title : 'Avens Publishing Group | Open Access Journals | Open Access Publications' ; ?>"/>
+<title><?php echo isset($title) ? 'Open Science Publications - '.$title : 'Open Science Publications | Open Access Journals | Open Access Publications' ; ?></title>
+<meta name="description" content="<?php echo isset($title) ? 'Open Science Journals - '.$title : 'Open Science Journals | Open Access Journals | Open Access Publications' ; ?>"/>
 <meta name="keywords" content="<?php echo $meta_keywords;?>"/>
 <link href='http://fonts.googleapis.com/css?family=Kreon:300,400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
@@ -39,7 +39,7 @@
 	<div class="container">
 		<div class="row" style="margin:10px 0">
 			<div class="col-sm-4" id="logo-box">
-				<a href="<?php echo base_url(); ?>"><img src="<?php echo base_url() ?>public//images/logo.png" alt="Avens Publishing Group" class="img-responsive"></a>
+				<a href="<?php echo base_url(); ?>"><img src="<?php echo base_url() ?>public//images/logo.png" alt="Open Science Publications" class="img-responsive"></a>
 			</div>
 			<div class="col-sm-8 text-right hidden-xs">
 			<?php 				
@@ -68,7 +68,7 @@
 				}else if($this->uri->segment(1) =='fulltextarticles'){
 					$img_name = '7and8.gif';
 				}	
-				echo '<img src="'.base_url().'public/images/animatedbanners/'.$img_name.'" alt="Avens Publishing Group" />';
+				echo '<img src="'.base_url().'public/images/animatedbanners/'.$img_name.'" alt="Open Science Publications" />';
 
 			 ?>			
 			</div>
