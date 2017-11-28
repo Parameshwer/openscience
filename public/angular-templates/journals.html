@@ -1,27 +1,17 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Create Journal</h1>
-			<div class="create-btn"><input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="searchGrid(search_value)" /><a href="#/EditJournals/0" class="btn btn-primary">Create Journal</a></div>
-			<div class="loader" ng-if="spinner">Loading...</div>
-			<!-- <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div> -->
-			 <div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div>			 
-			 <div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>			 
+<div ng-controller="journalController as vm">		
+<h1 class="page-header">Create Journal</h1>
 
-			<!-- <div>
-				<table class="table table-striped">
-				<tbody>
-				<tr><th>Journal Name</th><th>Journal ISSN Number</th><th>Journal Category</th><th>Created Date</th><th>Edit</th><th>Delete</th></tr></tbody>
-				<tr ng-repeat="(key,val) in main_journals">				
-				{{val}}
-				<td>{{val.journal_name}}</td><td>{{val.issn_number}}</td><td>{{val.category_name}}</td><td>{{val.updated_date}}</td>
-				<td><a href="#/EditJournals/{{val.id}}">Edit</a></td>
-				<td><a href="">Delete</a></td>
-				</tr>
-				</table>
-			</div> -->
-		</div>
+<div class="create-btn">
+		<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="vm.searchGrid(search_value)" />
+		<a ng-click="vm.addCategory()" class="btn btn-primary">Create Main Category</a>
 	</div>
-</div>
+
+<div class="loader" ng-show="vm.spinner">Loading...</div>
+	<div ng-if="!vm.spinner && vm.serviceGrid.data.length > 0" ng-style="vm.getTableHeight()" id="serviceGrid" 						
+		ui-grid-pagination 						
+		ui-grid-edit
+		ui-grid-auto-resize
+		ui-grid="vm.serviceGrid" class="grid"></div>
+
+		<div class="alert alert-danger" role="alert" ng-show="vm.serviceGrid.data.length == '0'">No Records Found</div>		
+	</div>	

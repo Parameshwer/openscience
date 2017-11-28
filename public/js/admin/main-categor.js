@@ -21,9 +21,7 @@ app.controller('dashboardController', function($scope,$rootScope,$http){
     });    
 });
 
-
-/*
-app.controller('mainCategoryController', ['$scope','$rootScope','$uibModal', '$log', '$document','$http','$timeout', function($scope,$rootScope,$uibModal, $log, $document,$http,$timeout) {
+app.controller('mainCategoryController', function($scope,$rootScope,$http,$timeout) {
     var self = this;
     self.spinner = true;        
     self.gridOptions1 = {
@@ -37,7 +35,7 @@ app.controller('mainCategoryController', ['$scope','$rootScope','$uibModal', '$l
           { name: 'updated_date'},
           { displayName: 'Edit',
             name: 'category_id',
-            cellTemplate: '<a class="modify-icon" href="http://localhost/openscience/admin#!/admin/EditMainCategory/10" >Edit</a>'
+            cellTemplate: '<a class="modify-icon" href="#/EditMainCategory/{{COL_FIELD}}">Edit</a>'
           }
         ],
         onRegisterApi: function (gridApi) {
@@ -59,18 +57,7 @@ app.controller('mainCategoryController', ['$scope','$rootScope','$uibModal', '$l
             getCategories(search_value);            
         },1000);
     }
-    $scope.test = function() {
-        
-        var modalInstance = $uibModal.open({          
-          ariaLabelledBy: 'modal-title',
-          ariaDescribedBy: 'modal-body',
-          templateUrl: base_url+'public/angular-templates/edit-maincategory.html',          
-          appendTo: angular.element('body'),
-          controller:ModalInstanceCtrl,          
-          size: 'sm'
 
-        });
-    }
     getCategories("");
 
     function getCategories(search_value) {
@@ -86,27 +73,9 @@ app.controller('mainCategoryController', ['$scope','$rootScope','$uibModal', '$l
              }, 500);
         });              
     }
-}]);
-app.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-  var $ctrl = this;
-  $ctrl.items = items;
-  $ctrl.selected = {
-    item: $ctrl.items[0]
-  };
-
-  $ctrl.ok = function () {
-    $uibModalInstance.close($ctrl.selected.item);
-  };
-
-  $ctrl.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
 });
 
-
 app.controller('editMaincategoryController', function($scope,$rootScope,$routeParams,$location,factory,main_category) {        
-    alert('aaa');
-    console.log(main_category);
     var main_cat_id = ($routeParams.MaincatID) ? parseInt($routeParams.MaincatID) : 0;
     $rootScope.title = (main_cat_id > 0) ? 'Edit Category' : 'Add Category';
     $scope.buttonText = (main_cat_id > 0) ? 'Update Category' : 'Add New Category';    
@@ -125,6 +94,3 @@ app.controller('editMaincategoryController', function($scope,$rootScope,$routePa
         }
     }
 });
-
-
-*/

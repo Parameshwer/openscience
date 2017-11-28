@@ -1,16 +1,22 @@
-<script src="<?php echo base_url();?>public/js/jquery.min.js"></script> 
-<script src="<?php echo base_url();?>public/js/bootstrap.min.js"></script> 
-<script src="<?php echo base_url();?>public/js/admin/angular.min.js"></script>
-  <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
-<script src="<?php echo base_url();?>public/js/admin/angular-route.min.js"></script>
+<script src="<?php echo base_url(); ?>public/js/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-touch.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+<script src="<?php echo base_url(); ?>public/js/admin/angular-ui-router.min.js"></script>
+<script src="<?php echo base_url(); ?>public/js/ui-grid.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>public/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
 <script src="<?php echo base_url();?>public/js/admin/routes.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/services.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/open-science-app.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/main-category.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/journal.js"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-rangy.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-sanitize.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular.min.js" type="text/javascript"></script> 
 <script src="<?php echo base_url(); ?>public/js/fine-uploader.js" type="text/javascript"></script>  
-<script src="<?php echo base_url(); ?>public/js/ui-grid.min.js" type="text/javascript"></script>  
 
 <script type="text/template" id="qq-template-gallery">
         <div class="qq-uploader-selector qq-uploader qq-gallery">

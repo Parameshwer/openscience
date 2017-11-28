@@ -43,7 +43,7 @@ class Login extends CI_Controller {
 				'is_logged_in' => true
 			);
 			$this->session->set_userdata($data);
-			redirect('admin#/admin/Dashboard');
+			redirect('admin#!/admin/Dashboard');
 		}
 		else // incorrect username or password
 		{						

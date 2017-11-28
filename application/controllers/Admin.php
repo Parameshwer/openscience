@@ -164,12 +164,12 @@ class Admin extends CI_Controller {
 		if($cat_id) {
 			$data = $this->Users_model->insert_main_category($cat_id,$cat_name);			
 			if($data){
-				$status = array('status' => true,"message" => 'Category Edited Successfully');
+				$status = array('status' => true,"message" => 'Category Edited Successfully','row_id'=> $cat_id);
 			}
 		} else {
 			$data = $this->Users_model->insert_main_category($cat_id,$cat_name);			
 			if($data) {
-				$status = array('status' => true,"message" => 'Category Added Successfully');			
+				$status = array('status' => true,"message" => 'Category Added Successfully','row_id'=> $cat_id);			
 			}
 			
 		}

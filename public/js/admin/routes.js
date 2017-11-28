@@ -1,11 +1,16 @@
-var app = angular.module('openScienceApp', [
-    'ui.router',    
-    'textAngular',
-    'ngSanitize',
-    'ui.grid',
-    'ui.grid.pagination',
-    'ui.grid.autoResize'
-]);
+var app = angular.module('openScienceApp', 
+    [
+        'ngAnimate',
+        'ui.grid',
+        'ui.grid.moveColumns',
+        'ui.grid.selection',
+        'ui.grid.resizeColumns',
+        'ngSanitize',
+        'ui.bootstrap',
+        'ui.grid.edit',
+        'ui.router',
+        'ui.grid.pagination'
+    ]);
 
 var base_url = "http://localhost/openscience/";
 
@@ -27,10 +32,13 @@ var base_url = "http://localhost/openscience/";
         })
         .state("admin.MainCategories", {
             title: 'MainCategories',
-            url: "/MainCategories",
-            controller: 'maincategoryController',
-            templateUrl:base_url+'public/angular-templates/MainCategories.html',
-            controllerAs: 'MaincategoryCtrl'
+            url: "/MainCategories",            
+            templateUrl:base_url+'public/angular-templates/MainCategories.html'            
         })
+        .state("admin.Journals", {
+            title: 'Journals',
+            url: "/Journals",            
+            templateUrl:base_url+'public/angular-templates/Journals.html'            
+        })        
               
 });
