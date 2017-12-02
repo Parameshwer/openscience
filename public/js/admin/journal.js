@@ -1,108 +1,108 @@
 app.controller('journalController', journalController);
-app.controller('RowEditCtrl', RowEditCtrl);
-app.service('RowEditor', RowEditor);
+app.controller('journalEditController', journalEditController);
+app.service('journalService', journalService);
 
-journalController.$inject = ['$scope', '$http', '$uibModal', 'RowEditor', 'uiGridConstants'];
+journalController.$inject = ['$scope', '$http', '$uibModal', 'journalService', 'uiGridConstants'];
 
-function journalController($scope, $http, $uibModal, RowEditor, uiGridConstants) {
-    var vm = this;
-        vm.spinner = true;
-    vm.editRow = RowEditor.editRow;
+function journalController($scope, $http, $uibModal, journalService, uiGridConstants) {
+    var journalCtrl = this;
+        journalCtrl.spinner = true;
+    journalCtrl.editRow = journalService.editRow;
 
-    vm.serviceGrid = {
+    journalCtrl.serviceGrid = {
         enableRowSelection: true,
         enableRowHeaderSelection: false,
         multiSelect: false,
         enableSorting: true,
-        enableColumnMenus: false
+        enableColumnMenus: false,
+        virtualizationThreshold: 75
     };
 
-    vm.serviceGrid.columnDefs = [
+    journalCtrl.serviceGrid.columnDefs = [
         {
-            field: 'category_name',
+            field: 'journal_name',
             enableSorting: true,
-            enableCellEdit: false,
-            width: 250
+            enableCellEdit: false,  
+            width: 350
         },
         {
-            field: 'created_date',
+            field: 'issn_number',
             enableSorting: true,
             enableCellEdit: false
         },
         {
-            field: 'updated_date',
+            field: 'journal_url_slug',
             enableSorting: true,
             enableCellEdit: false
         },
         {            
-            field: 'category_id',
+            field: 'id',
             displayName: '', 
             enableSorting: false,                               
             width: 150,            
-            cellTemplate: '<a ng-click=\"grid.appScope.vm.editRow(grid, row)\" class="modify-icon">Edit</a>'
+            cellTemplate: '<a ng-click=\"grid.appScope.journalCtrl.editRow(grid, row)\" class="modify-icon">Edit</a>'
         }
     ];
 
     /*$http.get('data.json').success(function(response) {
-      vm.serviceGrid.data = response;
+      journalCtrl.serviceGrid.data = response;
     });*/
-    getCategories("");
+    getJournals("");
 
-    function getCategories(search_value) {
+    function getJournals(search_value) {
         $http({
-            url: base_url + 'admin/get_categories',
+            url: base_url + 'admin/get_journals',
             method: "POST",
             data : JSON.stringify({"search_value":search_value}) 
         })
-        .then(function(response) {            
-            vm.spinner = false;
-            if(response.data.length > 0) {
-                vm.serviceGrid.data = response.data;
-            }                            
+        .then(function(response) {
+            console.log(response);
+            if(response) {
+                journalCtrl.spinner = false;                
+                journalCtrl.serviceGrid.data = response.data;
+            }
         });
         
     }
 
     
-    vm.getTableHeight = function() {           
+    journalCtrl.getTableHeight = function() {           
        return {
           height: (angular.element(window).height() - 120)+'px'
        };
     };
 
-    vm.searchGrid = function(search_value) {
-        vm.spinner = true; 
+    journalCtrl.searchGrid = function(search_value) {
+        journalCtrl.spinner = true; 
         setTimeout(function() {
-            getCategories(search_value);            
+            getJournals(search_value);            
         },1000);
     }
 
-    vm.addCategory = function() {
+    journalCtrl.addCategory = function() {
         var date = new Date();
         var newService = {
-            "category_id": "0",
-            "category_name": "",
-            "created_date": date,
-            "updated_date": date
+            "id": "0"            
         };
         var rowTmp = {};
         rowTmp.entity = newService;
-        vm.editRow($scope.vm.serviceGrid, rowTmp);
+        journalCtrl.editRow($scope.journalCtrl.serviceGrid, rowTmp);
     };
 
 }
 
-RowEditor.$inject = ['$http', '$rootScope', '$uibModal'];
+journalService.$inject = ['$http', '$rootScope', '$uibModal'];
 
-function RowEditor($http, $rootScope, $uibModal) {
+function journalService($http, $rootScope, $uibModal) {
     var service = {};
     service.editRow = editRow;
 
     function editRow(grid, row) {
         $uibModal.open({
-            templateUrl: base_url + 'public/angular-templates/edit-maincategory.html',
-            controller: ['$http', '$uibModalInstance', 'grid', 'row', RowEditCtrl],
-            controllerAs: 'vm',
+            templateUrl: base_url + 'public/angular-templates/edit-journals.html',
+            controller: ['$http', '$uibModalInstance', 'grid', 'row', journalEditController],
+            controllerAs: 'journalCtrl',
+            size: 'lg',
             resolve: {
                 grid: function() {
                     return grid;
@@ -117,46 +117,46 @@ function RowEditor($http, $rootScope, $uibModal) {
     return service;
 }
 
-function RowEditCtrl($http, $uibModalInstance, grid, row) {
-    var vm = this;    
-    vm.entity = angular.copy(row.entity);
-    vm.save = save;
+function journalEditController($http, $uibModalInstance, grid, row) {
+    var journalCtrl = this;    
+    journalCtrl.entity = angular.copy(row.entity);
+    journalCtrl.save = save;
     function save() {            
         $http({
-            url: base_url+"admin/insert_main_category",
+            url: base_url+"admin/insert_journal",
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            data : JSON.stringify({"category_id":vm.entity.category_id,"category_name":vm.entity.category_name})          
+            //data : JSON.stringify({"category_id":journalCtrl.entity.category_id,"category_name":journalCtrl.entity.category_name})          
+            data: JSON.stringify(journalCtrl.entity),
         })
         .then(function(response) {            
             if(response.status) {                
                 console.log(response);
-                vm.server_msg = response.data.message;
+                journalCtrl.server_msg = response.data.message;
                 if (response.data.row_id == '0') {
-                    row.entity = angular.extend(row.entity, vm.entity);                    
-                    row.entity.category_id = response.data.row_id;
+                    row.entity = angular.extend(row.entity, journalCtrl.entity);
+                    row.entity.id = 10;
                     grid.data.push(row.entity);
 
                 } else {
-                    row.entity = angular.extend(row.entity, vm.entity);
-                }
-                                
+                    row.entity = angular.extend(row.entity, journalCtrl.entity);
+                }                            
+                setTimeout(function() {
+                    journalCtrl.server_msg = '';
+                    $uibModalInstance.close(row.entity);
+                },1500);       
             }
         }); 
-        setTimeout(function() {
-            vm.server_msg = '';
-            $uibModalInstance.close(row.entity);
-        },1500);       
     }
 
-    vm.remove = remove;
+    journalCtrl.remove = remove;
 
     function remove() {
         console.dir(row)
         if (row.entity.id != '0') {
-            row.entity = angular.extend(row.entity, vm.entity);
-            var index = grid.appScope.vm.serviceGrid.data.indexOf(row.entity);
-            grid.appScope.vm.serviceGrid.data.splice(index, 1);
+            row.entity = angular.extend(row.entity, journalCtrl.entity);
+            var index = grid.appScope.journalCtrl.serviceGrid.data.indexOf(row.entity);
+            grid.appScope.journalCtrl.serviceGrid.data.splice(index, 1);
         }
         $uibModalInstance.close(row.entity);
     }

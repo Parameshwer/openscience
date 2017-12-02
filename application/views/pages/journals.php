@@ -24,72 +24,17 @@
 								</tr>
 							  </thead>
 							  <tbody>
-								<tr>
-								  <td>
-									<a href=""> Indian Journal of Applied Radiology  </a>
-								  </td>
-								  <td><b> &nbsp; </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Plant Science and Research </a>
-								  </td>
-								  <td><b> 2349-2805 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Cell Science & Molecular Biology </a>
-								  </td>
-								  <td><b> 	2350-0190 </b></td>
-								</tr> 
-								<tr>
-								  <td>
-									<a href=""> Indian Journal of Nutrition </a>
-								  </td>
-								  <td><b> 	2395-2326 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Indian Journal of Ocular Biology </a>
-								  </td>
-								  <td><b> &nbsp; </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Indian Journal of Cardio Biology & Clinical Sciences </a>
-								  </td>
-								  <td><b> 2454-5945 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Cancer Research and Molecular Medicine </a>
-								  </td>
-								  <td><b> &nbsp; </b></td>
-								</tr> 
-								<tr>
-								  <td>
-									<a href=""> Journal of Enzymology and Metabolism </a>
-								  </td>
-								  <td><b> 	2455-4766 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Immunology and Vaccine Technology </a>
-								  </td>
-								  <td><b> 2455-4774 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Chemistry & Applied Biochemistry </a>
-								  </td>
-								  <td><b> 2394-3106 </b></td>
-								</tr>
-								<tr>
-								  <td>
-									<a href=""> Journal of Environmental and Social Sciences </a>
-								  </td>
-								  <td><b> 2454-5953 </b></td>
-								</tr>
+							  	<?php 
+							  		foreach ($j_info as $key => $value) {
+									echo '<tr>
+									  <td>
+										<a href="#">'.$value['journal_name'].'</a>
+									  </td>
+									  <td><b>'.$value['issn_number'].'</b></td>
+									</tr>';							  			
+							  		}
+							  	?>
+								
 							  </tbody>
 							</table>
 						  </div>	

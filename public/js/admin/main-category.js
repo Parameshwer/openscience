@@ -1,13 +1,13 @@
 app.controller('mainCategoryController', mainCategoryController);
-app.controller('RowEditCtrl', RowEditCtrl);
-app.service('RowEditor', RowEditor);
+app.controller('editMainCategoryController', editMainCategoryController);
+app.service('mainCategoryService', mainCategoryService);
 
-mainCategoryController.$inject = ['$scope', '$http', '$uibModal', 'RowEditor', 'uiGridConstants'];
+mainCategoryController.$inject = ['$scope', '$http', '$uibModal', 'mainCategoryService', 'uiGridConstants'];
 
-function mainCategoryController($scope, $http, $uibModal, RowEditor, uiGridConstants) {
+function mainCategoryController($scope, $http, $uibModal, mainCategoryService, uiGridConstants) {
     var vm = this;
         vm.spinner = true;
-    vm.editRow = RowEditor.editRow;
+    vm.editRow = mainCategoryService.editRow;
 
     vm.serviceGrid = {
         enableRowSelection: true,
@@ -92,16 +92,16 @@ function mainCategoryController($scope, $http, $uibModal, RowEditor, uiGridConst
 
 }
 
-RowEditor.$inject = ['$http', '$rootScope', '$uibModal'];
+mainCategoryService.$inject = ['$http', '$rootScope', '$uibModal'];
 
-function RowEditor($http, $rootScope, $uibModal) {
+function mainCategoryService($http, $rootScope, $uibModal) {
     var service = {};
     service.editRow = editRow;
 
     function editRow(grid, row) {
         $uibModal.open({
             templateUrl: base_url + 'public/angular-templates/edit-maincategory.html',
-            controller: ['$http', '$uibModalInstance', 'grid', 'row', RowEditCtrl],
+            controller: ['$http', '$uibModalInstance', 'grid', 'row', editMainCategoryController],
             controllerAs: 'vm',
             resolve: {
                 grid: function() {
@@ -117,7 +117,7 @@ function RowEditor($http, $rootScope, $uibModal) {
     return service;
 }
 
-function RowEditCtrl($http, $uibModalInstance, grid, row) {
+function editMainCategoryController($http, $uibModalInstance, grid, row) {
     var vm = this;    
     vm.entity = angular.copy(row.entity);
     vm.save = save;

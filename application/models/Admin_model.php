@@ -82,10 +82,10 @@ class Admin_model extends CI_Model {
 	}
 	function get_journals($search_str) {
 		if($search_str) {			
-			$query = $this->db->query('SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE journal_name LIKE "%'.$search_str.'%"');				
+			$query = $this->db->query('SELECT * FROM wp_journals WHERE journal_name LIKE "%'.$search_str.'%"');				
 		} else {
 
-		$query = $this->db->query('SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id');				
+		$query = $this->db->query('SELECT * FROM wp_journals WHERE deleted ="1"');				
 		}
 		return $query->result_array();
 	}
@@ -188,21 +188,32 @@ class Admin_model extends CI_Model {
 		$query = $this->db->query("SELECT * FROM wp_journal_posts WHERE id=$page_id");
 		return $query->result_array();
 	}
-	function insert_journal($data) {
-				
+	function insert_journal($data) {		
+   		$journal_url_slug = array_key_exists('journal_url_slug', $data)?$data->journal_url_slug:"";
+   		$journal_name = array_key_exists('journal_name', $data)?$data->journal_name:"";
+   		$issn_number = array_key_exists('issn_number', $data)?$data->issn_number:"";
+   		$journal_meta_keywords = array_key_exists('journal_meta_keywords', $data)?$data->journal_meta_keywords:"";
+   		$journal_description = array_key_exists('journal_description', $data)?$data->journal_description:"";
+   		$banner_image = array_key_exists('banner_image', $data)?$data->banner_image:"";
+   		$sidebar_image = array_key_exists('sidebar_image', $data)?$data->sidebar_image:"";
+   		$journal_indexed_desc = array_key_exists('journal_indexed_desc', $data)?$data->journal_indexed_desc:"";
+   		$journal_image = array_key_exists('journal_image', $data)?$data->journal_image:"";
+
 		if($data->id) {
-		$query = $this->db->query("UPDATE wp_journals SET journal_url_slug='".$data->journal_url_slug."',journal_name='".$data->journal_name."', updated_date ='".date('Y-m-d')."',issn_number ='".$data->issn_number."',journal_meta_keywords ='".$data->journal_meta_keywords."',journal_ic_value ='".$data->journal_ic_value."',main_category_id ='".$data->main_category_id."',journal_description ='".$data->journal_description."', banner_image ='".$data->banner_image."',sidebar_image ='".$data->sidebar_image."' WHERE id=$data->id");
+		$query = $this->db->query("UPDATE wp_journals SET journal_url_slug='".$journal_url_slug."',journal_name='".$journal_name."', updated_date ='".date('Y-m-d')."',issn_number ='".$issn_number."',journal_meta_keywords ='".$journal_meta_keywords."',journal_description ='".$journal_description."', banner_image ='".$banner_image."',sidebar_image ='".$sidebar_image."',journal_indexed_desc ='".$journal_indexed_desc."',journal_image ='".$journal_image."' WHERE id=$data->id");
 		} else {
-		   $query = $this->db->query("INSERT INTO wp_journals (journal_url_slug,journal_name, created_date, updated_date, issn_number,journal_meta_keywords,journal_ic_value,main_category_id,journal_description,deleted, banner_image, sidebar_image) VALUES ('".$data->journal_url_slug."','".$data->journal_name."','".date('Y-m-d')."','".date('Y-m-d')."','".$data->issn_number."','".$data->journal_meta_keywords."','".$data->journal_ic_value."','".$data->main_category_id."','".$data->journal_description."','1',banner_image ='".$data->banner_image."',sidebar_image ='".$data->sidebar_image."')");
-		}
+		   $query = $this->db->query("INSERT INTO wp_journals (journal_image, journal_url_slug,journal_name, created_date, updated_date, issn_number,journal_meta_keywords,journal_description,deleted, banner_image, sidebar_image,journal_indexed_desc) VALUES ('".$journal_image."','".$journal_url_slug."','".$journal_name."','".date('Y-m-d')."','".date('Y-m-d')."','".$issn_number."','".$journal_meta_keywords."','".$journal_description."','1','".$banner_image."','".$sidebar_image."','".$journal_indexed_desc."')");
+		}		
 		return $query;
 		//return $query->result_array();
 	}
+
 	function get_journals_and_categories() {
 		$query = $this->db->query("SELECT wp_journals.journal_name,wp_journals.id, wp_journal_main_categories.category_id, wp_journal_main_categories.category_name FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id=wp_journal_main_categories.category_id GROUP BY wp_journals.journal_name");
 		return $query->result_array();
 	}
-	function update_journal_page($data) {			
+	function update_journal_page($data) {
+
 		if(isset($data->id) && !empty($data->id)) {
 			
 		$query = $this->db->query("UPDATE wp_journal_posts SET post_name='".$data->post_name."', updated_date ='".date('Y-m-d')."',category_id ='".$data->category_id."',post_slug ='".$data->post_slug."',journal_slug ='".$data->journal_slug."',post_keywords ='".$data->post_keywords."',post_title_tag ='".$data->post_title_tag."',post_meta_description ='".$data->post_meta_description."',post_content ='".$data->post_content."',journal_id ='".$data->journal_id."' WHERE id=$data->id");

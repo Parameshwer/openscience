@@ -1,111 +1,89 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Create Journal</h1>
-			<div class="create-btn text">
-				<a href="#/Journals">Back to Journals</a>				
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title">Edit Journal</h3>
+	</div>
+	<form class="form-horizontal" name="EditJorunalForm" novalidate>
+		<div class="modal-body">
+			<div class="form-group">				
+				<label for="category_name" class="col-sm-3 control-label">Journal name</label>
+				<div class="col-sm-9">
+					<input name="journal_name" ng-model="journalCtrl.entity.journal_name" type= "text" class= "form-control" placeholder="Journal Name" required>
+					<span style="color:red" ng-show="EditJorunalForm.journal_name.$dirty"><span ng-show="EditJorunalForm.journal_name.$error.required">Journal name is required.</span></span>
+				</div>
 			</div>
-			<div>
-				<div class="form-box">					
-					<form class="form-horizontal" id="journal_form" enctype="multipart/form-data" method="post"  name="myForm" novalidate>
-						<div class="form-group">
-							<label for="journal_name" class="col-sm-3 control-label">Journal Name</label>
-							<div class="col-sm-9">
-							<input type="text" ng-model="main_journal.journal_name" required class="form-control" id="journal_name" name="journal_name" ng-blur="convertToJournalSlug(this)" required >
-							<span style="color:red" ng-show="myForm.journal_name.$dirty"><span ng-show="myForm.journal_name.$error.required">Journal name is required.</span></span>
-								<!-- <input type="hidden" name="id" value=""> -->
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="journal_name" class="col-sm-3 control-label">Journal url slug</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" ng-model="main_journal.journal_url_slug" id="journal_url_slug" name="journal_url_slug" required="" value="">                        
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="issn_number" class="col-sm-3 control-label">Issn Number</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" ng-model="main_journal.issn_number" id="issn_number" name="issn_number" value="">
-							</div>
-						</div>
-				<!-- <div class="form-group">
-				<label for="banner_image" class="col-sm-3 control-label">Banner Image</label>
+			<div class="form-group">				
+				<label for="category_name" class="col-sm-3 control-label">Journal slug</label>
 				<div class="col-sm-9">
-				<input type="text" name="banner_image" id="banner_image" class="regular-text" value="">
-				<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
-
+					<input name="journal_url_slug" ng-model="journalCtrl.entity.journal_url_slug" type= "text" class= "form-control" placeholder="Journal Url Slug" required>
+					<span style="color:red" ng-show="EditJorunalForm.journal_url_slug.$dirty"><span ng-show="EditJorunalForm.journal_url_slug.$error.required">Journal url slug is required.</span></span>
 				</div>
-				</div>
-				<div class="form-group">
-				<label for="sidebar_image" class="col-sm-3 control-label">Sidebar Image</label>
+			</div>
+			<div class="form-group">				
+				<label for="category_name" class="col-sm-3 control-label">Journal Issn Number</label>
 				<div class="col-sm-9">
-				<input type="text" name="sidebar_image" id="sidebar_image" class="regular-text" value="">
-				<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+					<input name="name" ng-model="journalCtrl.entity.issn_number" type= "text" class= "form-control" placeholder="Journal Issn Number" required>
+					<span style="color:red" ng-show="EditJorunalForm.issn_number.$dirty"><span ng-show="EditJorunalForm.issn_number.$error.required">Journal Issn Number is required.</span></span>
+				</div>
+			</div>
+			<div class="form-group">				
+				<label for="category_name" class="col-sm-3 control-label">Journal Image</label>
+				
+				<div class="col-sm-9">
+					{{journalCtrl.entity.journal_image}}
+					<div id="upload-journal-image"  file-exts="['png','jpeg','jpg','gif']" global-file-upload></div>
+					<span style="color:red" ng-show="EditJorunalForm.issn_number.$dirty"><span ng-show="EditJorunalForm.issn_number.$error.required">Journal Issn Number is required.</span></span>
+					<input type="hidden" class="form-control" ng-model="journalCtrl.entity.journal_image" id="journal_image" name="journal_image">
 
-				</div>
-				</div> -->
-				<div class="form-group">
-					<label for="journal_meta_keywords" class="col-sm-3 control-label">Journal Meta Keywords</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" ng-model="main_journal.journal_meta_keywords" id="journal_meta_keywords" name="journal_meta_keywords" value="">
+					<div class="repopulate-uploaded-file" ng-if="journalCtrl.entity.journal_image">							
+						<ul class="qq-upload-list">
+							<li><img height="100px" width="100px" src="http://localhost/openscience/wp-content/uploads/{{journalCtrl.entity.journal_image}}"></li>
+							<li><p class="file-name">{{journalCtrl.entity.journal_image}}</p></li>
+							<li><span class="remove-file" ng-click="removeFile()"></span></li>
+						</ul>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="journal_ic_value" class="col-sm-3 control-label">Journal Ic Value</label>
-					<div class="col-sm-9">
-						<input type="text" class="form-control" id="journal_ic_value" name="journal_ic_value" ng-model="main_journal.journal_ic_value" value="">
+			</div>
+			<div class="form-group text-editor-form-group">				
+				<label for="category_name" class="col-sm-3 control-label">Indexed In</label>
+				<div class="col-sm-9">
+					<div class="row">
+						<div ng-controller="wysiwygeditor" class="container">
+							<text-angular name="post_content" ng-model="journalCtrl.entity.journal_indexed_desc"></text-angular>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="main_category" class="col-sm-3 control-label">Main Category</label>
-					<div class="col-sm-9">
+			</div>
+			<div class="form-group">
+				<label for="journal_meta_keywords" class="col-sm-3 control-label">Journal Meta Keywords</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="journalCtrl.entity.journal_meta_keywords" id="journal_meta_keywords" name="journal_meta_keywords" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="journal_description" class="col-sm-3 control-label">Journal Description</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="journalCtrl.entity.journal_description" id="journal_description" name="journal_description" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="journal_description" class="col-sm-3 control-label">Journal banner Image</label>
+				<div class="col-sm-9 banner-img-box">					
+					<input type="text" class="form-control" ng-model="journalCtrl.entity.banner_image" id="journal_banner_img" name="journal_banner_img">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="journal_description" class="col-sm-3 control-label">Journal Sidebar Image</label>
+				<div class="col-sm-9 sidebar-img-box">					
+					<input type="text" class="form-control" ng-model="journalCtrl.entity.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img">
+				</div>
+			</div>
 
-						<!-- <select class="form-control" name="main_category_id" ng-model="main_journal.main_category_id" data-ng-options="o.name for o in options"></select> -->
-						<select class="form-control" name="main_category_id" ng-model="main_journal.main_category_id">
-							<option value="">Selecr Journal</option>
-							<option value="10">Medical</option>
-							<option value="20">Biotechnolgy</option>
-							<option value="30">Pharmaseutical</option>
-							<option value="40">Biology</option>
-						</select>
-						<span style="color:red" ng-show="myForm.main_category_id.$dirty"><span ng-show="myForm.main_category_id.$error.required">Main category is required.</span></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="journal_description" class="col-sm-3 control-label">Journal Description</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" ng-model="main_journal.journal_description" id="journal_description" name="journal_description" value="">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="journal_description" class="col-sm-3 control-label">Journal banner Image</label>
-						<div class="col-sm-9 banner-img-box">
-							<!-- <input type="file" class="form-control" ng-model="main_journal.banner_image" id="journal_banner_img" name="journal_banner_img" value="" ng-change="uploadImage(main_journal)"> -->
-							<input type="text" class="form-control" ng-model="main_journal.banner_image" id="journal_banner_img" name="journal_banner_img" >
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="journal_description" class="col-sm-3 control-label">Journal Sidebar Image</label>
-						<div class="col-sm-9 sidebar-img-box">
-							<!-- <input type="file" class="form-control" ng-model="main_journal.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img" value="" ng-change="uploadImage(main_journal)"> -->
-							<input type="text" class="form-control" ng-model="main_journal.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img" >
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-10">
-							<!-- <input type="submit" name="insert" value="Save" class="btn btn-primary"> -->
-							<!-- ng-disabled="!myForm.journal_name.$dirty || myForm.journal_name.$invalid || !myForm.main_category_id.$dirty || myForm.main_category_id.$invalid" --> 
-							<button ng-click="saveJournal(main_journal)" class="btn btn-primary">{{buttonText}}
-							</button><span class="server-response"><span class="loader" ng-if="server_msg"></span><span ng-bind="server_msg"></span></span>
-						</div>
-					</div>
-				</form>						
-				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-				</div>
+		</div>
+		<div class="modal-footer">			
+			<span class="server_msg">{{journalCtrl.server_msg}}</span>
+			<button class="btn btn-link" ng-click="$close()">Cancel</button>
+			<button ng-disabled="!EditJorunalForm.journal_name.$dirty && EditJorunalForm.journal_name.$invalid || !EditJorunalForm.journal_url_slug.$dirty && EditJorunalForm.journal_url_slug.$invalid" class="btn btn-primary" ng-click="journalCtrl.save()">Save</button>
+			<!-- <button class="btn btn-primary" ng-click="journalCtrl.remove()">Delete</button> -->
+		</div>
+	</form>
+</div>

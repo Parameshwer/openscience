@@ -13707,3 +13707,12 @@ p.pdf_para .icon-pdf {
 .membership-page table th,.membership-page table td {
 	padding: 10px;
 }
+#latest-journals .entry-content p {
+	height: 95px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+#latest-journals-inner .paginatio-custom {
+	text-align: center;
+}

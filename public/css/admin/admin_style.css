@@ -184,6 +184,7 @@ body {
 }
 .main-content .grid .modify-icon {
   padding: 0 5px;
+  cursor: pointer;
 }
 .main-content .server-response {position: relative;overflow: hidden;margin-left: 50px;}
 .main-content .server-response .loader {
@@ -211,4 +212,15 @@ body {
     position: relative;
     display: block;
     padding: 10px 15px;
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 1200px;
+  }
+}
+
+@media (min-width: 992px) {
+  .text-editor-form-group .container {
+    width: 900px;
+  }
 }

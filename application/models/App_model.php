@@ -8,32 +8,9 @@ class App_model extends CI_Model {
     * @param string $password
     * @return void
     */    
-	function get_journals($sort_type) {
-		/*if($sort_type == 'category-wise' || $sort_type == 'atoz' || $sort_type == 'atozincat') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE wp_journals.deleted ='1' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'medical') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Medical' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'biotechnology') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Biotechnology' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'biology') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Biology' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'pharmaceutical') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Pharmaceutical' ORDER BY wp_journals.journal_name ASC");
-		}		
-		return $query->result_array();*/
-		if($sort_type == 'category-wise' || $sort_type == 'atoz' || $sort_type == 'atozincat') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' ORDER BY wp_journals.journal_name ASC");
-		}else if($sort_type == 'medical') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Medical' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'biotechnology') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Biotechnology' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'biology') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Biology' ORDER BY wp_journals.journal_name ASC");
-		} else if($sort_type == 'pharmaceutical') {
-			$query = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id INNER JOIN wp_journal_main_categories ON wp_journals.main_category_id = wp_journal_main_categories.category_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' AND wp_journal_main_categories.category_name = 'Pharmaceutical' ORDER BY wp_journals.journal_name ASC");
-		}		
-		return $query->result_array();
-		return $query->result_array();
+	function get_journals() {
+		$query  = $this->db->query('SELECT * FROM wp_journals WHERE deleted = "1"');		
+		return $query->result_array();		
 
 	}
 	function get_journal_post ($cat_name,$journal_name,$post_name) {
@@ -84,9 +61,9 @@ class App_model extends CI_Model {
 		
 		return $query->result_array();
 	}
-	function get_latest_journals($position) {
-		//$query = $this->db->query("SELECT * FROM `wp_latest_articles` LIMIT $position, 5");
-		$query = $this->db->query("SELECT * FROM wp_latest_articles la INNER JOIN wp_journals j ON la.article_category = j.id INNER JOIN wp_journal_main_categories mc ON mc.category_id = j.main_category_id AND la.deleted ='1' ORDER BY la.created_date DESC LIMIT $position , 5 ");
+	function get_home_page_journals($position) {
+		$query = $this->db->query("SELECT * FROM `wp_journals` WHERE deleted='1' LIMIT $position, 4");
+		
 		return $query->result_array();
 	}
 

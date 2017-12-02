@@ -20,7 +20,13 @@ app.controller('dashboardController', function($scope,$rootScope,$http){
         return $scope;
     });    
 });
-
+app.controller('wysiwygeditor', ['$scope', 'textAngularManager', function wysiwygeditor($scope, textAngularManager) {
+    $scope.version = textAngularManager.getVersion();
+    $scope.versionNumber = $scope.version.substring(1);
+    $scope.orightml = '';
+    $scope.htmlcontent = $scope.orightml;
+    $scope.disabled = false;
+}]);
 
 /*
 app.controller('mainCategoryController', ['$scope','$rootScope','$uibModal', '$log', '$document','$http','$timeout', function($scope,$rootScope,$uibModal, $log, $document,$http,$timeout) {

@@ -9,10 +9,12 @@ var app = angular.module('openScienceApp',
         'ui.bootstrap',
         'ui.grid.edit',
         'ui.router',
-        'ui.grid.pagination'
+        'ui.grid.pagination',
+        'textAngular'
     ]);
 
 var base_url = "http://localhost/openscience/";
+
 
  app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when("", "/admin");

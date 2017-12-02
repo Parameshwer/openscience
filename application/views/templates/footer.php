@@ -123,6 +123,21 @@
 	<!-- Footer Scripts
 	============================================= -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>public/js/functions.js"></script>
-
+	<script type="text/javascript" src="<?php echo base_url(); ?>public/js/jquery.bootpag.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#latest-journals").load("<?php echo base_url(); ?>home/get_home_page_journals/"); 
+			$(".pagination").bootpag({
+				total: 16,
+				page: 1,
+				maxVisible: 4,
+				leaps: false 
+			}).on("page", function(e, num){
+				e.preventDefault();
+				$("#latest-journals").prepend('<div class="loading-indication"></div>');		
+				$("#latest-journals").load("<?php echo base_url(); ?>home/get_home_page_journals/", {'page':num});
+			});
+		});
+	</script>
 </body>
 </html>
