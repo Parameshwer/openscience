@@ -113,11 +113,11 @@ class Admin_model extends CI_Model {
 		$query = $this->db->query('SELECT * FROM  wp_collaboration ORDER BY created_date DESC LIMIT 100 ');
 		return $query->result_array();	
 	}
-	function get_journals_posts($search_str) {
+	function get_journal_posts($search_str) {
 		if($search_str) {
-			$query = $this->db->query('SELECT jp.id, jp.post_name, j.journal_name, mc.category_name,jp.created_date, jp.updated_date FROM wp_journal_posts jp INNER JOIN wp_journals j on jp.journal_id = j.id INNER JOIN wp_journal_main_categories mc on mc.category_id = j.main_category_id WHERE jp.deleted="1" AND jp.post_name LIKE "%'.$search_str.'%"');
+			$query = $this->db->query('SELECT jp.id, jp.post_name, j.journal_name, jp.post_slug,jp.created_date,jp.post_content, jp.updated_date FROM wp_journal_posts jp INNER JOIN wp_journals j on jp.journal_id = j.id WHERE jp.deleted="1" AND jp.post_name LIKE "%'.$search_str.'%"');
 		} else {			
-			$query = $this->db->query('SELECT jp.id, jp.post_name, j.journal_name, mc.category_name,jp.created_date, jp.updated_date FROM wp_journal_posts jp INNER JOIN wp_journals j on jp.journal_id = j.id INNER JOIN wp_journal_main_categories mc on mc.category_id = j.main_category_id WHERE jp.deleted="1"');
+			$query = $this->db->query('SELECT jp.id, jp.post_name, j.journal_name, jp.post_slug,jp.created_date,jp.post_content, jp.updated_date FROM wp_journal_posts jp INNER JOIN wp_journals j on jp.journal_id = j.id WHERE jp.deleted="1"');
 		}
 			
 		//print_r($query);				
@@ -214,11 +214,19 @@ class Admin_model extends CI_Model {
 	}
 	function update_journal_page($data) {
 
+		$post_name = array_key_exists('post_name', $data)?$data->post_name:"";
+		$post_slug = array_key_exists('post_slug', $data)?$data->post_slug:"";
+		$post_keywords = array_key_exists('post_keywords', $data)?$data->post_keywords:"";
+		$post_title_tag = array_key_exists('post_title_tag', $data)?$data->post_title_tag:"";
+		$post_meta_description = array_key_exists('post_meta_description', $data)?$data->post_meta_description:"";
+		$post_content = array_key_exists('post_content', $data)?$data->post_content:"";
+		$journal_id = array_key_exists('journal_id', $data)?$data->journal_id:"";
+
 		if(isset($data->id) && !empty($data->id)) {
 			
-		$query = $this->db->query("UPDATE wp_journal_posts SET post_name='".$data->post_name."', updated_date ='".date('Y-m-d')."',category_id ='".$data->category_id."',post_slug ='".$data->post_slug."',journal_slug ='".$data->journal_slug."',post_keywords ='".$data->post_keywords."',post_title_tag ='".$data->post_title_tag."',post_meta_description ='".$data->post_meta_description."',post_content ='".$data->post_content."',journal_id ='".$data->journal_id."' WHERE id=$data->id");
+		$query = $this->db->query("UPDATE wp_journal_posts SET post_name='".$post_name."', updated_date ='".date('Y-m-d')."',post_slug ='".$post_slug."',post_keywords ='".$post_keywords."',post_title_tag ='".$post_title_tag."',post_meta_description ='".$post_meta_description."',post_content ='".$post_content."',journal_id ='".$journal_id."' WHERE id=$data->id");
 		} else {
-		   $query = $this->db->query("INSERT INTO wp_journal_posts (post_title_tag,post_meta_description,post_keywords,post_name, created_date, updated_date, category_id,post_slug,post_content,journal_id,deleted) VALUES ('".$data->post_title_tag."','".$data->post_meta_description."','".$data->post_keywords."','".$data->post_name."','".date('Y-m-d')."','".date('Y-m-d')."','".$data->category_id."','".$data->post_slug."','".$data->post_content."','$data->journal_id','1')");
+		   $query = $this->db->query("INSERT INTO wp_journal_posts (post_title_tag,post_meta_description,post_keywords,post_name, created_date, updated_date,post_slug,post_content,journal_id,deleted) VALUES ('".$post_title_tag."','".$post_meta_description."','".$post_keywords."','".$post_name."','".date('Y-m-d')."','".date('Y-m-d')."','".$post_slug."','".$post_content."','$journal_id','1')");
 		}
 		return $query;
 		//return $query->result_array();

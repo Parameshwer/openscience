@@ -5,30 +5,30 @@
 	<form class="form-horizontal" name="EditJorunalForm" novalidate>
 		<div class="modal-body">
 			<div class="form-group">				
-				<label for="category_name" class="col-sm-3 control-label">Journal name</label>
-				<div class="col-sm-9">
+				<label for="category_name" class="col-sm-2 control-label">Journal name</label>
+				<div class="col-sm-10">
 					<input name="journal_name" ng-model="journalCtrl.entity.journal_name" type= "text" class= "form-control" placeholder="Journal Name" required>
 					<span style="color:red" ng-show="EditJorunalForm.journal_name.$dirty"><span ng-show="EditJorunalForm.journal_name.$error.required">Journal name is required.</span></span>
 				</div>
 			</div>
 			<div class="form-group">				
-				<label for="category_name" class="col-sm-3 control-label">Journal slug</label>
-				<div class="col-sm-9">
+				<label for="category_name" class="col-sm-2 control-label">Journal slug</label>
+				<div class="col-sm-10">
 					<input name="journal_url_slug" ng-model="journalCtrl.entity.journal_url_slug" type= "text" class= "form-control" placeholder="Journal Url Slug" required>
 					<span style="color:red" ng-show="EditJorunalForm.journal_url_slug.$dirty"><span ng-show="EditJorunalForm.journal_url_slug.$error.required">Journal url slug is required.</span></span>
 				</div>
 			</div>
 			<div class="form-group">				
-				<label for="category_name" class="col-sm-3 control-label">Journal Issn Number</label>
-				<div class="col-sm-9">
+				<label for="category_name" class="col-sm-2 control-label">Journal Issn Number</label>
+				<div class="col-sm-10">
 					<input name="name" ng-model="journalCtrl.entity.issn_number" type= "text" class= "form-control" placeholder="Journal Issn Number" required>
 					<span style="color:red" ng-show="EditJorunalForm.issn_number.$dirty"><span ng-show="EditJorunalForm.issn_number.$error.required">Journal Issn Number is required.</span></span>
 				</div>
 			</div>
 			<div class="form-group">				
-				<label for="category_name" class="col-sm-3 control-label">Journal Image</label>
+				<label for="category_name" class="col-sm-2 control-label">Journal Image</label>
 				
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 					{{journalCtrl.entity.journal_image}}
 					<div id="upload-journal-image"  file-exts="['png','jpeg','jpg','gif']" global-file-upload></div>
 					<span style="color:red" ng-show="EditJorunalForm.issn_number.$dirty"><span ng-show="EditJorunalForm.issn_number.$error.required">Journal Issn Number is required.</span></span>
@@ -43,36 +43,36 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group text-editor-form-group">				
-				<label for="category_name" class="col-sm-3 control-label">Indexed In</label>
-				<div class="col-sm-9">
+			<!-- <div class="form-group text-editor-form-group">				
+				<label for="category_name" class="col-sm-2 control-label">Indexed In</label>
+				<div class="col-sm-10">
 					<div class="row">
 						<div ng-controller="wysiwygeditor" class="container">
 							<text-angular name="post_content" ng-model="journalCtrl.entity.journal_indexed_desc"></text-angular>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
-				<label for="journal_meta_keywords" class="col-sm-3 control-label">Journal Meta Keywords</label>
-				<div class="col-sm-9">
+				<label for="journal_meta_keywords" class="col-sm-2 control-label">Journal Meta Keywords</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" ng-model="journalCtrl.entity.journal_meta_keywords" id="journal_meta_keywords" name="journal_meta_keywords" >
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="journal_description" class="col-sm-3 control-label">Journal Description</label>
-				<div class="col-sm-9">
+				<label for="journal_description" class="col-sm-2 control-label">Journal Description</label>
+				<div class="col-sm-10">
 					<input type="text" class="form-control" ng-model="journalCtrl.entity.journal_description" id="journal_description" name="journal_description" >
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="journal_description" class="col-sm-3 control-label">Journal banner Image</label>
+				<label for="journal_description" class="col-sm-2 control-label">Journal banner Image</label>
 				<div class="col-sm-9 banner-img-box">					
 					<input type="text" class="form-control" ng-model="journalCtrl.entity.banner_image" id="journal_banner_img" name="journal_banner_img">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="journal_description" class="col-sm-3 control-label">Journal Sidebar Image</label>
+				<label for="journal_description" class="col-sm-2 control-label">Journal Sidebar Image</label>
 				<div class="col-sm-9 sidebar-img-box">					
 					<input type="text" class="form-control" ng-model="journalCtrl.entity.sidebar_image" id="journal_sidebar_img" name="journal_sidebar_img">
 				</div>

@@ -98,13 +98,13 @@ class Admin extends CI_Controller {
 		//echo $data;
 
 	}
-	public function get_journals_posts() {
+	public function get_journal_posts() {
 
 		$obj=json_decode(file_get_contents('php://input'));
 		$search_str = (isset($obj->search_value) && !empty($obj->search_value))?$obj->search_value:"";
 
 		$this->load->model('Admin_model');	
-		$data = $this->Admin_model->get_journals_posts($search_str);
+		$data = $this->Admin_model->get_journal_posts($search_str);
 		$journal_data = $this->Admin_model->get_journals_and_categories();
 
 		if(is_array($data)){

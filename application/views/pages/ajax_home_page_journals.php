@@ -3,7 +3,7 @@
 <div class="ipost BorderJ clearfix">
 	<div class="col_one_fourth bottommargin-sm">
 		<div class="entry-image">
-			<a href="#"><img class="image_fade" src="<?php echo base_url(); ?>wp-content/uploads/<?php echo $row['journal_image'];  ?>" alt="Image"></a>
+			<a href="#"><img class="image_fade" src="<?php echo base_url(); ?>wp-content/uploads/<?php echo $row['journal_image'];  ?>" alt="<?php echo $row['journal_image']; ?>"></a>
 		</div>
 	</div>
 	<div class="col_three_fourth bottommargin-sm col_last">

@@ -215,12 +215,12 @@ body {
 }
 @media (min-width: 992px) {
   .modal-lg {
-    width: 1200px;
+    width: 1000px;
   }
 }
 
 @media (min-width: 992px) {
-  .text-editor-form-group .container {
-    width: 900px;
+  .text-angular-wrap .container {
+    width: 825px;
   }
 }

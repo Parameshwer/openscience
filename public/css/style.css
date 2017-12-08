@@ -6760,6 +6760,7 @@ body:not(.device-touch) .button {
 	display: inline-block;
 	position: relative;
 	left: 0;
+	text-transform: capitalize;
 }
 
 body:not(.device-touch) .button.button-reveal i,
@@ -13708,7 +13709,7 @@ p.pdf_para .icon-pdf {
 	padding: 10px;
 }
 #latest-journals .entry-content p {
-	height: 95px;
+	height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;

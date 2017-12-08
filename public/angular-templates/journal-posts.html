@@ -1,0 +1,17 @@
+<div ng-controller="journalController as journalCtrl">		
+<h1 class="page-header">Journals</h1>
+
+<div class="create-btn">
+		<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="journalCtrl.searchGrid(search_value)" />
+		<a ng-click="journalCtrl.addCategory()" class="btn btn-primary">Create Main Category</a>
+	</div>
+
+<div class="loader" ng-show="journalCtrl.spinner">Loading...</div>
+	<div ng-if="!journalCtrl.spinner && journalCtrl.serviceGrid.data.length > 0" ng-style="journalCtrl.getTableHeight()" id="serviceGrid" 						
+		ui-grid-pagination 						
+		ui-grid-edit
+		ui-grid-auto-resize
+		ui-grid="journalCtrl.serviceGrid" class="grid"></div>
+
+		<div class="alert alert-danger" role="alert" ng-show="journalCtrl.serviceGrid.data.length == '0'">No Records Found</div>		
+	</div>	

@@ -1,43 +1,17 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Journal pages</h1>
-			<div class="create-btn text">
-				<a href="#/Journals/medical">Back to Journal Posts</a>				
-			</div>
-			<div class="create-btn">
-				<a href="#/EditJournalPage/0"class="btn btn-primary">Create Journal page</a>
-				<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="searchGrid(search_value)" />
-			</div>
-			<div class="loader" ng-if="spinner">Loading...</div>
-			<!-- <div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div> -->
-			<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 			
-			<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>			 
+<div ng-controller="journalPostController as journalPostCtrl">	
+<h1 class="page-header">Journal Posts</h1>
 
-
-
-	        <!-- <my-grid class="ng-init: JournalPC.secondOptions;" tdata=JournalPC.secondOptions.data></my-grid> 	 -->
- 	
-
- <!-- 			<div>			
-				<div ng-if="journal_posts">
-					<table class="table table-striped">					
-					<tbody>
-						<tr><th>Post Name</th><th>Journal</th><th>Category</th><th>Created date</th><th>Updated date</th><th>Edit</th><th>Delete</th></tr>
-						<tr ng-repeat="(key,val) in journal_posts">
-
-							{{val}}				
-							<td>{{val.post_name}}</td><td>{{val.journal_name}}</td><td>{{val.category_name}}</td><td>{{val.created_date}}</td><td>{{val.updated_date}}</td>
-							<td><a href="#/EditJournalPage/{{val.id}}">Edit</a></td>
-							<td><a href="">Delete</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
- -->			<div ng-show="journal_posts.length == '0'">There are no Journal Pages found.</div>
-		</div>
+<div class="create-btn">
+		<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="journalPostCtrl.searchGrid(search_value)" />
+		<a ng-click="journalPostCtrl.addJournalPost()" class="btn btn-primary">Create Journal Post</a>
 	</div>
-</div>
-</div>
+
+<div class="loader" ng-show="journalPostCtrl.spinner">Loading...</div>
+<div ng-if="!journalPostCtrl.spinner && journalPostCtrl.serviceGrid.data.length > 0" ng-style="journalPostCtrl.getTableHeight()" id="serviceGrid"						
+	ui-grid-pagination 						
+	ui-grid-edit
+	ui-grid-auto-resize
+	ui-grid="journalPostCtrl.serviceGrid" class="grid"></div>
+
+	<div class="alert alert-danger" role="alert" ng-show="journalPostCtrl.serviceGrid.data.length == '0'">No Records Found</div>		
+</div>	

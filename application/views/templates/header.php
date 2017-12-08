@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 	<!-- Stylesheets ============================================= -->
-	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto:300,400,500,700" rel="stylesheet" type="text/css" />
+	<!-- <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto:300,400,500,700" rel="stylesheet" type="text/css" /> -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>public/css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url(); ?>public/css/swiper.css" type="text/css" />

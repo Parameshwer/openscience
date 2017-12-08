@@ -14,6 +14,7 @@
 <script src="<?php echo base_url();?>public/js/admin/open-science-directives.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/main-category.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/journal.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/journal-posts.js"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-rangy.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-sanitize.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular.min.js" type="text/javascript"></script> 
