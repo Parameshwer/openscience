@@ -287,7 +287,13 @@ public function get_Suplitype() {
 		
 
 	}
-
+	public function get_journals_volumes() {
+		$this->load->model('Admin_model');
+		$data = $this->Admin_model->get_journals_volumes();
+		if(is_array($data)) {
+			echo json_encode($data);
+		}
+	}
 	public function get_Collaborations() {
 		$this->load->model('Admin_model');	
 		$data = $this->Admin_model->get_Collaborations();
@@ -319,22 +325,21 @@ public function get_Suplitype() {
 		if(isset($obj->id) && !empty($obj->id)) {
 			$data = $this->Admin_model->update_journal_page($obj);			
 			if($data){
-				$status = array('status' => true,"message" => 'Journal Post Edited Successfully');
+				$status = array('status' => true,"message" => 'Journal Post Edited Successfully','row_id'=>$obj->id);
 			}
 		} else {
 			$data = $this->Admin_model->update_journal_page($obj);			
 			if($data) {
-				$status = array('status' => true,"message" => 'Journal post Added Successfully');			
+				$status = array('status' => true,"message" => 'Journal post Added Successfully','row_id'=>$obj->id);			
 			}
 			
 		}		
 		echo json_encode($status);
 	}
-	public function get_journal_archive() {
+	public function get_journal_archives() {
 		$this->load->model('Admin_model');
 		$archive_id = $this->input->get('id');
-		$data['archive_info'] = $this->Admin_model->get_journal_archive($archive_id);
-		$data['journal_info'] = $this->Admin_model->get_journals_and_categories();
+		$data = $this->Admin_model->get_journal_archives($archive_id);
 		if(is_array($data)) {
 			echo json_encode($data);
 		}
@@ -366,15 +371,14 @@ public function get_Suplitype() {
 	public function update_archive() {
 		$this->load->model('Admin_model');
 		$obj=json_decode(file_get_contents('php://input'));				
+		$data = $this->Admin_model->update_archive($obj);			
 		if(isset($obj->id) && !empty($obj->id)) {
-			$data = $this->Admin_model->update_archive($obj);			
 			if($data){
-				$status = array('status' => true,"message" => 'Journal Archive Edited Successfully');
+				$status = array('status' => true,"message" => 'Journal Archive Edited Successfully','row_id'=>$obj->id);
 			}
-		} else {
-			$data = $this->Admin_model->update_archive($obj);			
+		} else {		
 			if($data) {
-				$status = array('status' => true,"message" => 'Journal Archive Added Successfully');			
+				$status = array('status' => true,"message" => 'Journal Archive Added Successfully','row_id'=>$obj->id);			
 			}
 			
 		}		
@@ -418,8 +422,7 @@ public function get_Suplitype() {
 	}
         public function get_new_eb_members() {
 		$this->load->model('Admin_model');	
-		$data = $this->Admin_model->get_new_eb_members();
-		$journal_data = $this->Admin_model->get_journals_and_categories();
+		$data = $this->Admin_model->get_new_eb_members();		
 
 		if(is_array($data)){
 			echo json_encode($data);
@@ -444,12 +447,12 @@ public function get_Suplitype() {
 		if(isset($obj->id) && !empty($obj->id)) {
 			$data = $this->Admin_model->update_eb_member($obj);			
 			if($data){
-				$status = array('status' => true,"message" => 'Journal Post Edited Successfully');
+				$status = array('status' => true,"message" => 'Journal Eb Member Successfully','row_id'=>$obj->id);				
 			}
 		} else {
 			$data = $this->Admin_model->update_eb_member($obj);			
 			if($data) {
-				$status = array('status' => true,"message" => 'Journal post Added Successfully');			
+				$status = array('status' => true,"message" => 'Journal Eb Member added Successfully','row_id'=>$obj->id);
 			}
 			
 		}		

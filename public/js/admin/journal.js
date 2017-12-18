@@ -51,7 +51,7 @@ function journalController($scope, $http, $uibModal, journalService, uiGridConst
 
     function getJournals(search_value) {
         $http({
-            url: base_url + 'admin/get_journals',
+            url: base_url + 'get_journals',
             method: "POST",
             data : JSON.stringify({"search_value":search_value}) 
         })
@@ -123,7 +123,7 @@ function journalEditController($http, $uibModalInstance, grid, row) {
     journalCtrl.save = save;
     function save() {            
         $http({
-            url: base_url+"admin/insert_journal",
+            url: base_url+"insert_journal",
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             //data : JSON.stringify({"category_id":journalCtrl.entity.category_id,"category_name":journalCtrl.entity.category_name})          
@@ -135,7 +135,7 @@ function journalEditController($http, $uibModalInstance, grid, row) {
                 journalCtrl.server_msg = response.data.message;
                 if (response.data.row_id == '0') {
                     row.entity = angular.extend(row.entity, journalCtrl.entity);
-                    row.entity.id = 10;
+                    console.log(row.entity);
                     grid.data.push(row.entity);
 
                 } else {

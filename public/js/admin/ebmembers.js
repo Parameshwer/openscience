@@ -1,15 +1,15 @@
-app.controller('journalPostController', journalPostController);
-app.controller('journalPostEditController', journalPostEditController);
-app.service('journalPostService', journalPostService);
+app.controller('ebController', ebController);
+app.controller('ebMemberEditController', ebMemberEditController);
+app.service('ebMemberPostService', ebMemberPostService);
 
-journalPostController.$inject = ['$scope', '$http', '$uibModal', 'journalPostService', 'uiGridConstants'];
+ebController.$inject = ['$scope', '$http', '$uibModal', 'ebMemberPostService', 'uiGridConstants'];
 
-function journalPostController($scope, $http, $uibModal, journalPostService, uiGridConstants,$rootScope) {
-    var journalPostCtrl = this;
-        journalPostCtrl.spinner = true;
-    journalPostCtrl.editRow = journalPostService.editRow;
+function ebController($scope, $http, $uibModal, ebMemberPostService, uiGridConstants,$rootScope) {
+    var ebCtrl = this;
+        ebCtrl.spinner = true;
+    ebCtrl.editRow = ebMemberPostService.editRow;
 
-    journalPostCtrl.serviceGrid = {
+    ebCtrl.serviceGrid = {
         enableRowSelection: true,
         enableRowHeaderSelection: false,
         multiSelect: false,
@@ -18,24 +18,24 @@ function journalPostController($scope, $http, $uibModal, journalPostService, uiG
         virtualizationThreshold: 75
     };
 
-    journalPostCtrl.serviceGrid.columnDefs = [
-        {
-            field: 'post_name',
-            enableSorting: true,
-            enableCellEdit: false
-        },
-        {
-            field: 'post_slug',
-            enableSorting: true,
-            enableCellEdit: false
-        },
+    ebCtrl.serviceGrid.columnDefs = [
         {
             field: 'journal_name',
             enableSorting: true,
             enableCellEdit: false
         },
         {
-            field: 'post_content',
+            field: 'eb_member_name',
+            enableSorting: true,
+            enableCellEdit: false
+        },
+        {
+            field: 'eb_member_photo',
+            enableSorting: true,
+            enableCellEdit: false
+        },
+        {
+            field: 'eb_member_country',
             enableSorting: true,
             enableCellEdit: false,
             width: 250
@@ -44,26 +44,27 @@ function journalPostController($scope, $http, $uibModal, journalPostService, uiG
             field: 'id',
             displayName: '', 
             enableSorting: false,   
-            cellTemplate: '<a ng-click=\"grid.appScope.journalPostCtrl.editRow(grid, row)\" class="modify-icon">Edit</a>'
+            cellTemplate: '<a ng-click=\"grid.appScope.ebCtrl.editRow(grid, row)\" class="modify-icon">Edit</a>'
         }
     ];
 
     /*$http.get('data.json').success(function(response) {
-      journalPostCtrl.serviceGrid.data = response;
+      ebCtrl.serviceGrid.data = response;
     });*/
+    
     getJournalPosts("");
 
     function getJournalPosts(search_value) {
         $http({
-            url: base_url + 'get_journal_posts',
+            url: base_url + 'get_new_eb_members',
             method: "POST",
             data : JSON.stringify({"search_value":search_value}) 
         })
         .then(function(response) {
             console.log(response);
             if(response) {
-                journalPostCtrl.spinner = false;                
-                journalPostCtrl.serviceGrid.data = response.data;
+                ebCtrl.spinner = false;                
+                ebCtrl.serviceGrid.data = response.data;
             }
         });
         //$rootScope.journals = {};
@@ -72,43 +73,43 @@ function journalPostController($scope, $http, $uibModal, journalPostService, uiG
     }
 
     
-    journalPostCtrl.getTableHeight = function() {           
+    ebCtrl.getTableHeight = function() {           
        return {
           height: (angular.element(window).height() - 120)+'px'
        };
     };
 
-    journalPostCtrl.searchGrid = function(search_value) {
-        journalPostCtrl.spinner = true; 
+    ebCtrl.searchGrid = function(search_value) {
+        ebCtrl.spinner = true; 
         setTimeout(function() {
             getJournalPosts(search_value);            
         },1000);
     }
 
-    journalPostCtrl.addJournalPost = function() {
+    ebCtrl.addMember = function() {
         var date = new Date();
         var newService = {
             "id": "0"            
         };
         var rowTmp = {};
         rowTmp.entity = newService;
-        journalPostCtrl.editRow($scope.journalPostCtrl.serviceGrid, rowTmp);
+        ebCtrl.editRow($scope.ebCtrl.serviceGrid, rowTmp);
     };
 
 }
 
-journalPostService.$inject = ['$http', '$rootScope', '$uibModal'];
+ebMemberPostService.$inject = ['$http', '$rootScope', '$uibModal'];
 
-function journalPostService($http, $rootScope, $uibModal) {
+function ebMemberPostService($http, $rootScope, $uibModal) {
    
     var service = {};
     service.editRow = editRow;
     console.log(service.edit);
     function editRow(grid, row) {
         $uibModal.open({
-            templateUrl: base_url + 'public/angular-templates/edit-journal-page.html',
-            controller: ['$http', '$uibModalInstance', 'grid', 'row', journalPostEditController],
-            controllerAs: 'journalPostCtrl',
+            templateUrl: base_url + 'public/angular-templates/edit-ebmember.html',
+            controller: ['$http', '$uibModalInstance', 'grid', 'row', ebMemberEditController],
+            controllerAs: 'ebCtrl',
             size: 'lg',
             resolve: {
                 grid: function() {
@@ -124,37 +125,37 @@ function journalPostService($http, $rootScope, $uibModal) {
     return service;
 }
 
-function journalPostEditController($http, $uibModalInstance, grid, row) {
-    var journalPostCtrl = this;    
-    console.log(journalPostCtrl);
-    journalPostCtrl.entity = angular.copy(row.entity);
-    journalPostCtrl.save = save;
+function ebMemberEditController($http, $uibModalInstance, grid, row) {
+    var ebCtrl = this;    
+    console.log(ebCtrl);
+    ebCtrl.entity = angular.copy(row.entity);
+    ebCtrl.save = save;
     function save() {         
     
         $http({
-            url: base_url+"update_journal_page",
+            url: base_url+"update_eb_member",
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            //data : JSON.stringify({"category_id":journalPostCtrl.entity.category_id,"category_name":journalPostCtrl.entity.category_name})          
-            data: JSON.stringify(journalPostCtrl.entity),
+            //data : JSON.stringify({"category_id":ebCtrl.entity.category_id,"category_name":ebCtrl.entity.category_name})          
+            data: JSON.stringify(ebCtrl.entity),
         })
         .then(function(response) {            
             if(response.status) {                
                 console.log(response);
-                journalPostCtrl.server_msg = response.data.message;
-                row.entity = angular.extend(row.entity, journalPostCtrl.entity);
+                ebCtrl.server_msg = response.data.message;
+                row.entity = angular.extend(row.entity, ebCtrl.entity);
                 if (response.data.row_id == '0') {
                     grid.data.push(row.entity);
 
                 }                
-                angular.forEach(journalPostCtrl.journals, function(v,i) {
+                angular.forEach(ebCtrl.journals, function(v,i) {
                     if(v.id == row.entity.journal_id) {
                         row.entity.journal_name = v.journal_name;                            
                     }
                 });
                 
                 setTimeout(function() {
-                    journalPostCtrl.server_msg = '';
+                    ebCtrl.server_msg = '';
                     $uibModalInstance.close(row.entity);
                 },1500);       
             }
@@ -168,18 +169,18 @@ function journalPostEditController($http, $uibModalInstance, grid, row) {
     })
     .then(function(response) {            
         if(response.status) { 
-            journalPostCtrl.journals = response.data;
+            ebCtrl.journals = response.data;
         }
     }); 
 
-    journalPostCtrl.remove = remove;
+    ebCtrl.remove = remove;
 
     function remove() {
         console.dir(row)
         if (row.entity.id != '0') {
-            row.entity = angular.extend(row.entity, journalPostCtrl.entity);
-            var index = grid.appScope.journalPostCtrl.serviceGrid.data.indexOf(row.entity);
-            grid.appScope.journalPostCtrl.serviceGrid.data.splice(index, 1);
+            row.entity = angular.extend(row.entity, ebCtrl.entity);
+            var index = grid.appScope.ebCtrl.serviceGrid.data.indexOf(row.entity);
+            grid.appScope.ebCtrl.serviceGrid.data.splice(index, 1);
         }
         $uibModalInstance.close(row.entity);
     }

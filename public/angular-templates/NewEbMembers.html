@@ -1,58 +1,17 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">New Eb Members</h1>
-			<div class="create-btn text">
-				<a href="#/Journals/medical">Back to Journal Posts</a>				
-			</div>
-			<div class="create-btn"><a href="#/EditNewEbmember/0"class="btn btn-primary">Create New Eb Member</a></div>
-			<div>
-<form class="form-inline">
-<div class="form-group">
-<label for="category_name">Journal Name</label>											
-<select id="journal_name_select" class="form-control" ng-model="j_info.journal_id" name="journal_id">							<option value="">Select Journal</option>
-<optgroup label="Medical">
-<option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Medical'" value="{{j.id}}">{{j.journal_name}}</option>    
-</optgroup>
-<optgroup label="Biotechnology">
-<option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biotechnology'" value="{{j.id}}">{{j.journal_name}}</option>    
-</optgroup>
-<optgroup label="Biology">
-<option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Biology'" value="{{j.id}}">{{j.journal_name}}</option>    
-</optgroup>
-<optgroup label="Pharmaceutical">
-<option ng-repeat="j in journals" ng-selected="archive_info.journal_id==j.id?'selected':''" ng-if="j.category_name == 'Pharmaceutical'" value="{{j.id}}">{{j.journal_name}}</option>    
-</optgroup>								  
-</select>												
+<div ng-controller="ebController as ebCtrl">		
+<h1 class="page-header">Eb Members</h1>
+
+<div class="create-btn">
+	<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="ebCtrl.searchGrid(search_value)" />
+	<a ng-click="ebCtrl.addMember()" class="btn btn-primary">Create Eb Member</a>
 </div>
-<button ng-click="GetEbMembers(j_info)" class="btn btn-primary" >Get Eb Members</button>				
-</form>	
-				<!-- <div ng-if="eb_members">
-					<table class="table table-striped">					
-					<tbody>
-						<tr><th>Category id</th><th>Journal Id</th><th>Eb Member Name</th><th>Eb Member Photo</th><th>Eb Member country</th><th>Editor Chief</th><th>Eb Member Description</th><th>Post Slug</th><th>Journal Slug</th><th>Updated date</th><th>Edit</th><th>Delete</th></tr>
-						<tr ng-repeat="(key,val) in eb_members">								
-							<td id="eb_members_{{val.id}}">{{val.category_name}}</td><td>{{val.journal_name}}</td><td>{{val.eb_member_name}}</td><td><img src="http://www.avensonline.org/wp-content/uploads/{{val.eb_member_photo}}" height="100px" width="100px"><br/>{{val.eb_member_photo}}</td><td>{{val.eb_member_country}}</td>
-							<td ng-if="val.editor_chief == 1">Yes</td>
-							<td ng-if="val.editor_chief == 0">No</td>							
-							<td ng-bind-html="val.eb_member_desc"></td>
-							<td>{{val.eb_post_slug}}</td>
-							<td>{{val.eb_journal_slug}}</td>
-							<td>{{val.updated_date}}</td>
-							<td><a href="#/EditNewEbmember/{{val.id}}">Edit</a></td>
-<td><button ng-click="ebmemberDelete(val.id)" class="btn btn-default" >Delete</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div ng-show="eb_members.length == '0'">There are no Eb members found.</div> -->
-			<div class="avens-ui-grid">
-				<div class="loader" ng-if="spinner">Loading...</div>
-				<div ng-if="!spinner && gridOptions1" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+
+<div class="loader" ng-show="ebCtrl.spinner">Loading...</div>
+<div ng-if="!ebCtrl.spinner && ebCtrl.serviceGrid.data.length > 0" ng-style="ebCtrl.getTableHeight()" id="serviceGrid" 						
+	ui-grid-pagination 						
+	ui-grid-edit
+	ui-grid-auto-resize
+	ui-grid="ebCtrl.serviceGrid" class="grid"></div>
+
+	<div class="alert alert-danger" role="alert" ng-show="ebCtrl.serviceGrid.data.length == '0'">No Records Found</div>		
+</div>	

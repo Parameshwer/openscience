@@ -28,7 +28,7 @@
 							  		foreach ($j_info as $key => $value) {
 									echo '<tr>
 									  <td>
-										<a href="#">'.$value['journal_name'].'</a>
+										<a href="'.base_url().''.$value['journal_url_slug'].'/'.$value['post_slug'].'">'.$value['journal_name'].'</a>
 									  </td>
 									  <td><b>'.$value['issn_number'].'</b></td>
 									</tr>';							  			

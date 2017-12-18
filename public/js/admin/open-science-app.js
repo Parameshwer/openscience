@@ -12,7 +12,7 @@ app.controller('loginController', function($scope,$rootScope,$http){
 });
 app.controller('dashboardController', function($scope,$rootScope,$http){        
     $http({
-        url: base_url+'admin/dashboard',
+        url: base_url+'dashboard',
         method: "POST"        
     })
     .then(function(response) {

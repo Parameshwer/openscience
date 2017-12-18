@@ -1,38 +1,17 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Journal Archive</h1>
-			<div class="create-btn text">
-				<a href="#/Journals/medical">Back to Journal Archives</a>				
-			</div>
-			<div class="create-btn"><a href="#/EditJournalArchive/0"class="btn btn-primary">Create Journal Archive</a></div>
-			<div ng-controller="JournalArchiveController">			
-				<!---<div ng-if="journal_posts_archives">
-					<table class="table table-striped">
-					<tbody>
-						<tr><th>Journal Name</th><th>Category Name</th><th>Archive Description</th><th>Archive Volume</th><th>Archive In</th><th>Archive Year</th><th>Edit</th><th>Delete</th><!-- <th>Move Archive</th> --></tr>
-						<!--<tr ng-repeat="(key,val) in journal_posts_archives">				
-							<td>{{val.journal_name}}</td>
-                                                        <td>{{val.category_name}}</td>
-                                                        <td ng-bind-html="val.archive_desc"></td>
-                                                        <td>{{val.archive_volume}}</td>
-							<td ng-if="val.archive_in == '1'">Article In Press</td>
-							<td ng-if="val.archive_in == '2'">Current Issue</td>
-							<td ng-if="val.archive_in == '3'">Archive</td>
-							<td ng-if="val.archive_in == '4'">Special Issues</td>
-							<td>{{val.archive_year}}</td>
-                                                        
-							<td><a href="#/EditJournalArchive/{{val.id}}">Edit</a></td>
-							<td><a href="">Delete</a></td>
-							<!-- <td><a href="">--</a></td> -->
-						<!---</tr>
-					</tbody>
-				</table>
-			</div>
-			<div ng-show="journal_posts_archives.length == '0'">There are no Journal Pages found.</div> -->
-		</div>
+<div ng-controller="journalArchiveController as journalArchiveCtrl">	
+<h1 class="page-header">Journal Archives</h1>
+
+<div class="create-btn">
+		<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="journalArchiveCtrl.searchGrid(search_value)" />
+		<a ng-click="journalArchiveCtrl.addJournalArchive()" class="btn btn-primary">Create Journal Archive</a>
 	</div>
-</div>
-</div>
+
+<div class="loader" ng-show="journalArchiveCtrl.spinner">Loading...</div>
+<div ng-if="!journalArchiveCtrl.spinner && journalArchiveCtrl.serviceGrid.data.length > 0" ng-style="journalArchiveCtrl.getTableHeight()" id="serviceGrid"						
+	ui-grid-pagination 						
+	ui-grid-edit
+	ui-grid-auto-resize
+	ui-grid="journalArchiveCtrl.serviceGrid" class="grid"></div>
+
+	<div class="alert alert-danger" role="alert" ng-show="journalArchiveCtrl.serviceGrid.data.length == '0'">No Records Found</div>		
+</div>	

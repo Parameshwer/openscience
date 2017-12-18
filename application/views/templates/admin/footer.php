@@ -1,8 +1,8 @@
 <script src="<?php echo base_url(); ?>public/js/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-touch.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/angular.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/angular-animate.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/angular-touch.min.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/angular-sanitize.js"></script>
 <script src="<?php echo base_url(); ?>public/js/admin/angular-ui-router.min.js"></script>
 <script src="<?php echo base_url(); ?>public/js/ui-grid.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/bootstrap.min.js" type="text/javascript"></script>
@@ -15,6 +15,8 @@
 <script src="<?php echo base_url();?>public/js/admin/main-category.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/journal.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/journal-posts.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/journal-archives.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/ebmembers.js"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-rangy.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-sanitize.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular.min.js" type="text/javascript"></script> 

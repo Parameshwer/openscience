@@ -1,56 +1,67 @@
-<script>
-$(document).ready(function(){
-tinymce.init({
-  selector: '.journal-post-editor',
-  height: 1500,
-  width: 700,
-  plugins: [
-    'advlist autolink lists link image charmap print preview anchor',
-    'searchreplace visualblocks code fullscreen',
-    'insertdatetime media table contextmenu paste code'
-  ],
-  toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-  content_css: [
-    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-    '//www.tinymce.com/css/codepen.min.css'
-  ]
-});
-});
-</script>
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Editorial Board Member Details</h1>
-			<div class="create-btn text">
-				<a href="#/JournalPosts">Back to Journals Pages</a>				
-			</div>
-			<div class="form-box form-horizontal">
-			<div class="form-group">
-				<label for="issn_number" class="col-sm-4 control-label">Post Slug</label>							
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="eb_content" name="eb_content" ng-model="ebmember.post_slug">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="issn_number" class="col-sm-4 control-label">Journal Slug</label>							
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="journal_slug" name="eb_content" ng-model="ebmember.journal_slug">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="issn_number" class="col-sm-12 control-label">Eb member content</label>							
-				<div class="col-sm-12">
-				<div class="row">
-					<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
-						<text-angular name="post_content" ng-model="ebmember.post_content"></text-angular>
-					</div>
-				</div>					
-				</div>
-			</div>
+<div class="modal-header">
+	<h3 class="modal-title">Edit Eb Member</h3>
+</div>
+<form class="form-horizontal" enctype="multipart/form-data" name="eb_member_form" method="post" novalidate
+>	
+<div class="modal-body">
+	<div class="form-group">
+		<label for="journal_name" class="col-sm-2 control-label">Journal Name</label>
+		<div class="col-sm-10">			
+			<select class="form-control" ng-model="ebCtrl.entity.journal_id" name="journal_id" required>				
+				<option value="">Select Journal</option>
+				<option ng-selected="{{journal.id == ebCtrl.entity.journal_id}}" ng-repeat="journal in ebCtrl.journals" value="{{journal.id}}">{{journal.journal_name}}</option>
+			</select>
+			<span style="color:red" ng-show="eb_member_form.journal_id.$dirty"><span ng-show="eb_member_form.journal_id.$error.required">Journal Name is required.</span></span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="issn_number" class="col-sm-2 control-label">Eb Member Name</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" ng-model="ebCtrl.entity.eb_member_name" id="eb_member_name" name="eb_member_name" required>
+			<span style="color:red" ng-show="eb_member_form.eb_member_name.$dirty"><span ng-show="eb_member_form.eb_member_name.$error.required">Member Name is required.</span></span>					
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="issn_number" class="col-sm-2 control-label">Eb Member Image Name</label>							
+		<div class="col-sm-10">
+			<input type="text" class="form-control" ng-model="ebCtrl.entity.eb_member_photo" id="eb_member_photo" name="eb_member_photo" required>
+			<span style="color:red" ng-show="eb_member_form.eb_member_photo.$dirty"><span ng-show="eb_member_form.eb_member_photo.$error.required">Member photo is required.</span></span>						
+		</div>
+	</div>
+
+	<div class="form-group" required="">
+		<label for="banner_image" class="col-sm-2 control-label">Eb Member Country</label>
+		<div class="col-sm-10">								
+			<input type="text" class="form-control" id="eb_member_country" name="eb_member_country" ng-model="ebCtrl.entity.eb_member_country"
+		</div>
+	</div>
+</div>
+<div class="form-group" required="">
+	<label for="banner_image" class="col-sm-2 control-label">Editor in chief</label>
+	<div class="col-sm-10">
+		<div class="radio-inline">
+			<label><input type="radio" value="1" id="editor_chief" name="editor_chief" ng-model="ebCtrl.entity.editor_chief">Yes</label>									
+		</div>
+		<div class="radio-inline">
+			<label><input type="radio" value="0" id="editor_chief" name="editor_chief" ng-model="ebCtrl.entity.editor_chief"> No</label>
+		</div>								
+	</div>
+</div>
+<div class="form-group" required="">
+	<label for="banner_image" class="col-sm-2 control-label">Eb Member Description</label>
+	<div class="col-sm-10">								
+		<div class="row text-angular-wrap">
+			<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+				<text-angular name="eb_member_desc" ng-model="ebCtrl.entity.eb_member_desc"></text-angular>
 			</div>
 		</div>
 	</div>
 </div>
 </div>
+<div class="modal-footer">			
+	<span class="server_msg">{{ebCtrl.server_msg}}</span>
+	<button class="btn btn-link" ng-click="$close()">Cancel</button>		
+	<button ng-disabled="!eb_member_form.journal_id.$dirty && eb_member_form.journal_id.$invalid || !eb_member_form.eb_member_name.$dirty && eb_member_form.eb_member_name.$invalid || !eb_member_form.eb_member_name.$dirty && eb_member_form.eb_member_name.$invalid || !eb_member_form.eb_member_photo.$dirty && eb_member_form.eb_member_photo.$invalid" class="btn btn-primary" ng-click="ebCtrl.save()">Save</button>			
+</div>
+</form>	

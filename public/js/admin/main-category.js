@@ -50,7 +50,7 @@ function mainCategoryController($scope, $http, $uibModal, mainCategoryService, u
 
     function getCategories(search_value) {
         $http({
-            url: base_url + 'admin/get_categories',
+            url: base_url + 'get_categories',
             method: "POST",
             data : JSON.stringify({"search_value":search_value}) 
         })

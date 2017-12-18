@@ -27,7 +27,7 @@
 		<div class="col-sm-9">			
 			<select class="form-control" ng-model="journalPostCtrl.entity.journal_id" name="journal_id" required>				
 				<option value="">Select Journal</option>
-				<option ng-repeat="journal in journalPostCtrl.journals" value="{{journal.id}}">{{journal.journal_name}}</option>
+				<option ng-selected="{{journal.id == journalPostCtrl.entity.journal_id}}" ng-repeat="journal in journalPostCtrl.journals" value="{{journal.id}}">{{journal.journal_name}}</option>
 			</select>
 			<span style="color:red" ng-show="journal_post_form.journal_id.$dirty"><span ng-show="journal_post_form.journal_id.$error.required">Journal Name is required.</span></span>
 		</div>
