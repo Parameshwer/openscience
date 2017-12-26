@@ -70,6 +70,7 @@ $route['update_journal_page'] = 'admin/update_journal_page';
 $route['update_eb_member'] = 'admin/update_eb_member';
 $route['get_journals_volumes'] = 'admin/get_journals_volumes';
 $route['update_archive'] = 'admin/update_archive';
+$route['deleteEBmember'] = 'admin/deleteEBmember';
 
 
 

@@ -16,7 +16,7 @@ class App_model extends CI_Model {
 	}
 
 	function get_journals() {
-		$query  = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' ORDER BY wp_journals.journal_name ASC");		
+		$query  = $this->db->query("SELECT * FROM wp_journals INNER JOIN wp_journal_posts ON wp_journals.id = wp_journal_posts.journal_id WHERE post_name = 'Home' AND wp_journals.deleted ='1' ORDER BY wp_journals.created_date ASC");		
 		return $query->result_array();		
 
 	}

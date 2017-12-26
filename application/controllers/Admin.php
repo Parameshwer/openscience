@@ -624,14 +624,15 @@ public function get_new_eb_members_by_journal() {
 public function deleteEBmember() {
 		$this->load->model('Admin_model');
 		$obj=json_decode(file_get_contents('php://input'));		
+
 		if(isset($obj->id) && !empty($obj->id)) {
 			$data = $this->Admin_model->deleteEBmember($obj->id);			
 			if($data){
-				$status = array('status' => true,"message" => 'Journal Post Edited Successfully');
+				$status = array('status' => true,"message" => 'Journal EB Deleted Successfully','row_id'=> $obj->id);
 			}
 		} 
 
-		echo json_encode($data);
+		echo json_encode($status);
 }
 public function deleteJournalPost() {
 		$this->load->model('Admin_model');
@@ -642,7 +643,7 @@ public function deleteJournalPost() {
 				$status = array('status' => true,"message" => 'Journal Post Deleted Successfully');
 			}
 		} 
-
+		
 		echo json_encode($data);
 }
 public function deleteJournalArchive() {

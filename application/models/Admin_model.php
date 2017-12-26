@@ -134,7 +134,9 @@ class Admin_model extends CI_Model {
 		return $query->result_array();
 	}
 	function get_journal_archives($archive_id) {
-		$query = $this->db->query('SELECT * FROM  wp_journal_archives WHERE deleted = 1');	
+		//$query = $this->db->query('SELECT * FROM  wp_journal_archives WHERE deleted = 1');	
+		$query = $this->db->query('SELECT a.journal_id, a.id, a.article_title, a.archive_doi,a.archive_year,a.archive_volume, jv.volume_name,a.archive_fulltext,a.archive_pdf,a.archive_in, a.created_date,a.archive_desc, a.article_authors, a.article_link,a.archive_year,a.article_type,a.archive_fulltext,a.archive_pdf,a.supli_pdf, b.journal_name FROM wp_journal_archives a INNER JOIN wp_journals b on a.journal_id = b.id left join wp_journal_volumes jv on jv.id=a.archive_volume WHERE a.deleted = 1');	
+
 		//print_r($query);				
 		return $query->result_array();
 	}
@@ -255,12 +257,12 @@ class Admin_model extends CI_Model {
 		$data->supli_pdf = (isset($data->supli_pdf) && !empty($data->supli_pdf))?$data->supli_pdf:'';
 		$data->archive_fulltext = (isset($data->archive_fulltext) && !empty($data->archive_fulltext))?$data->archive_fulltext:'';*/
 
+		$temp = htmlentities($archive_desc, ENT_QUOTES, "UTF-8");
 		if(isset($data->id) && !empty($data->id)) {
-		$temp = htmlentities($data->archive_desc, ENT_QUOTES, "UTF-8");
-
+		print_r($temp);
 		$query = $this->db->query("UPDATE wp_journal_archives SET article_type='".$article_type."',journal_id='".$journal_id."',archive_desc='".$temp."', archive_doi='".$archive_doi."',archive_year='".$archive_year."',archive_volume='".$archive_volume."',archive_fulltext='".$archive_fulltext."',archive_pdf='".$archive_pdf."',archive_in='".$archive_in."',supli_pdf='".$supli_pdf."',article_title='".$article_title."',article_link='".$article_link."',article_authors='".$article_authors."',doi_name='".$doi_name."',doi_link='".$doi_link."' WHERE id=$data->id");
 		} else {
-		   $query = $this->db->query("INSERT INTO wp_journal_archives (article_title, article_link, article_type, journal_id, archive_desc,archive_doi, archive_year, archive_volume, archive_fulltext, archive_pdf, supli_pdf,archive_in, created_date, updated_date, deleted) VALUES ('".$article_title."','".$article_link."','".$article_type."','".$journal_id."','".$archive_desc."','".$archive_doi."','".$archive_year."','".$archive_volume."','".$archive_fulltext."','".$archive_pdf."','".$supli_pdf."','".$archive_in."','".date('Y-m-d')."','".date('Y-m-d')."','1')");
+		   $query = $this->db->query("INSERT INTO wp_journal_archives (article_title, article_link, article_type, journal_id, archive_desc,archive_doi, archive_year, archive_volume, archive_fulltext, archive_pdf, supli_pdf,archive_in, created_date, updated_date,article_authors, deleted) VALUES ('".$article_title."','".$article_link."','".$article_type."','".$journal_id."','".$temp."','".$archive_doi."','".$archive_year."','".$archive_volume."','".$archive_fulltext."','".$archive_pdf."','".$supli_pdf."','".$archive_in."','".date('Y-m-d')."','".date('Y-m-d')."','".$article_authors."', '1')");
 		}
 		return $query;
 		//return $query->result_array();
@@ -323,6 +325,7 @@ $query = $this->db->query('SELECT eb.id,eb.eb_post_slug,eb.eb_journal_slug,j.jou
 }
 function deleteEBmember($e_id) {
 	$query = $this->db->query("UPDATE wp_eb_members SET deleted = '2' WHERE id = $e_id");
+	return $query;
 }
 function deleteJournalPost($p_id) {
 	$query = $this->db->query("UPDATE wp_journal_posts SET deleted = '2' WHERE id = $p_id");	

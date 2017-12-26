@@ -1,13 +1,13 @@
 app.controller('journalArchiveController', journalArchiveController);
 app.controller('journalArchiveEditController', journalArchiveEditController);
-app.service('journalPostService', journalPostService);
+app.service('journalarticleService', journalarticleService);
 
-journalArchiveController.$inject = ['$scope', '$http', '$uibModal', 'journalPostService', 'uiGridConstants'];
+journalArchiveController.$inject = ['$scope', '$http', '$uibModal', 'journalarticleService', 'uiGridConstants'];
 
-function journalArchiveController($scope, $http, $uibModal, journalPostService, uiGridConstants,$rootScope) {
+function journalArchiveController($scope, $http, $uibModal, journalarticleService, uiGridConstants,$rootScope) {
     var journalArchiveCtrl = this;
         journalArchiveCtrl.spinner = true;
-    journalArchiveCtrl.editRow = journalPostService.editRow;
+    journalArchiveCtrl.editRow = journalarticleService.editRow;
 
     journalArchiveCtrl.serviceGrid = {
         enableRowSelection: true,
@@ -22,28 +22,74 @@ function journalArchiveController($scope, $http, $uibModal, journalPostService, 
         {
             field: 'journal_name',
             enableSorting: true,
-            enableCellEdit: false
+            enableCellEdit: false,
+            width: 300
         },
         {
             field: 'article_title',
             enableSorting: true,
-            enableCellEdit: false
+            enableCellEdit: false,
+            width: 200
         },
         {
-            field: 'archive_volume',
+            field: 'article_link',
             enableSorting: true,
-            enableCellEdit: false
+            enableCellEdit: false,
+            width: 120
+        },
+        {
+            field: 'article_authors',
+            enableSorting: true,
+            enableCellEdit: false,
+            width: 120
+        },
+        {
+            field: 'volume_name',
+            enableSorting: true,
+            enableCellEdit: false,
+            width:120,
+            displayName: "volume"
+        },
+        {
+            field: 'archive_year',
+            enableSorting: true,
+            enableCellEdit: false,
+            width:120
+        },
+        {
+            field: 'archive_type',
+            enableSorting: true,
+            enableCellEdit: false,
+            cellTemplate: '<div class="ui-grid-cell-contents"><div ng-show="{{row.entity.article_type == 1}}">Review Article</div><div ng-show="{{row.entity.article_type == 2}}">Research Article</div><div ng-show="{{row.entity.article_type == 3}}">Supplementary Information</div></div>',            
+            width:120
         },
         {
             field: 'archive_in',
             enableSorting: true,
-            enableCellEdit: false
+            enableCellEdit: false,   
+            cellTemplate: '<div class="ui-grid-cell-contents"><div ng-show="{{row.entity.archive_in == 1}}">Article In Press</div><div ng-show="{{row.entity.archive_in == 2}}">Current Issue</div><div ng-show="{{row.entity.archive_in == 3}}">Archive</div><div ng-show="{{row.entity.archive_in == 4}}">Special Issues</div></div>',
+            width:110            
         },
         {
-            field: 'post_content',
+            field: 'archive_fulltext',
             enableSorting: true,
             enableCellEdit: false,
-            width: 250
+            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.opensciencepublications.com/fulltextarticles/{{row.entity.archive_fulltext}}" target="_blank">{{row.entity.archive_fulltext}}</a></div>',
+            width: 120
+        },
+        {
+            field: 'archive_pdf',
+            enableSorting: true,
+            enableCellEdit: false,
+            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.opensciencepublications.com/wp-content/{{row.entity.archive_pdf}}" target="_blank">{{row.entity.archive_pdf}}</a></div>',
+            width: 120
+        },
+        {
+            field: 'supli_pdf',
+            enableSorting: true,
+            enableCellEdit: false,
+            cellTemplate: '<div class="ui-grid-cell-contents"><a href="http://www.opensciencepublications.com/wp-content/{{row.entity.supli_pdf}}" target="_blank">{{row.entity.supli_pdf}}</a></div>',
+            width: 120
         },
         {            
             field: 'id',
@@ -101,9 +147,9 @@ function journalArchiveController($scope, $http, $uibModal, journalPostService, 
 
 }
 
-journalPostService.$inject = ['$http', '$rootScope', '$uibModal'];
+journalarticleService.$inject = ['$http', '$rootScope', '$uibModal'];
 
-function journalPostService($http, $rootScope, $uibModal) {
+function journalarticleService($http, $rootScope, $uibModal) {
    
     var service = {};
     service.editRow = editRow;
@@ -133,6 +179,16 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
     console.log(journalArchiveCtrl);
     journalArchiveCtrl.entity = angular.copy(row.entity);
     journalArchiveCtrl.save = save;
+    journalArchiveCtrl.archive_in = [{"id":"1","name":"Article In Press"},{"id":"2","name":"Current Issue"},{"id":"3","name":"Archive"},{"id":"4","name":"Special Issues"}];
+    journalArchiveCtrl.article_type = [{"id":"1","name":"Review Article"},{"id":"2","name":"Research Article"},{"id":"3","name":"Supplementary Information"}];
+    $http({
+        url: base_url+'get_journals_volumes',
+        method: "POST"        
+    })
+    .then(function(response) {        
+        journalArchiveCtrl.journal_volumes = response.data;        
+    });
+
     function save() {         
     
         $http({
@@ -161,9 +217,14 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
                         row.entity.archive_volume = v.volume_name;                            
                     }
                 });
-                angular.forEach(journalArchiveCtrl.archive_type, function(v,i) {
+                angular.forEach(journalArchiveCtrl.archive_in, function(v,i) {
                     if(v.id == row.entity.archive_in) {
                         row.entity.archive_in = v.name;                            
+                    }
+                });
+                angular.forEach(journalArchiveCtrl.article_type, function(v,i) {
+                    if(v.id == row.entity.article_type) {
+                        row.entity.article_type = v.name;                            
                     }
                 });
                 
@@ -174,9 +235,7 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
             }
         }); 
     }
-    
-    journalArchiveCtrl.archive_type = [{"id":"1","name":"Article In Press"},{"id":"2","name":"Current Issue"},{"id":"3","name":"Archive"},{"id":"4","name":"Special Issues"}];
-    journalArchiveCtrl.article_type = [{"id":"1","name":"Review Article"},{"id":"2","name":"Research Article"},{"id":"3","name":"Supplementary Information"}];
+        
     var archive_years = [];
     for (var i = 2000; i <=  2020 ; i++) {
         archive_years.push(i);
@@ -193,13 +252,7 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
             journalArchiveCtrl.journals = response.data;
         }
     }); 
-    $http({
-        url: base_url+'get_journals_volumes',
-        method: "POST"        
-    })
-    .then(function(response) {        
-        journalArchiveCtrl.journal_volumes = response.data;        
-    });
+  
     journalArchiveCtrl.remove = remove;
 
     function remove() {

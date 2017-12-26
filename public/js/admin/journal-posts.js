@@ -15,7 +15,7 @@ function journalPostController($scope, $http, $uibModal, journalPostService, uiG
         multiSelect: false,
         enableSorting: true,
         enableColumnMenus: false,
-        virtualizationThreshold: 75
+        virtualizationThreshold: 250
     };
 
     journalPostCtrl.serviceGrid.columnDefs = [
