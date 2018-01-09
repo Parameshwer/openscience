@@ -337,9 +337,11 @@ public function get_Suplitype() {
 		echo json_encode($status);
 	}
 	public function get_journal_archives() {
+		$obj=json_decode(file_get_contents('php://input'));			
 		$this->load->model('Admin_model');
-		$archive_id = $this->input->get('id');
-		$data = $this->Admin_model->get_journal_archives($archive_id);
+		//$archive_id = $this->input->get('id');
+		$search_str = (isset($obj->search_value) && !empty($obj->search_value))?$obj->search_value:"";
+		$data = $this->Admin_model->get_journal_archives($search_str);
 		if(is_array($data)) {
 			echo json_encode($data);
 		}
@@ -371,14 +373,14 @@ public function get_Suplitype() {
 	public function update_archive() {
 		$this->load->model('Admin_model');
 		$obj=json_decode(file_get_contents('php://input'));				
-		$data = $this->Admin_model->update_archive($obj);			
+		$data = $this->Admin_model->update_archive($obj);		
 		if(isset($obj->id) && !empty($obj->id)) {
-			if($data){
-				$status = array('status' => true,"message" => 'Journal Archive Edited Successfully','row_id'=>$obj->id);
+			if($data['result'] == '1') {
+				$status = array('status' => true,"message" => 'Journal Archive Edited Successfully','row_id'=>$data['insert_id'],'add_type'=>'edit');
 			}
 		} else {		
-			if($data) {
-				$status = array('status' => true,"message" => 'Journal Archive Added Successfully','row_id'=>$obj->id);			
+			if($data['result'] == '1') {
+				$status = array('status' => true,"message" => 'Journal Archive Added Successfully','row_id'=>$data['insert_id'],'add_type'=>'add');			
 			}
 			
 		}		
@@ -387,15 +389,14 @@ public function get_Suplitype() {
 	public function update_latest_article() {
 		$this->load->model('Admin_model');
 		$obj=json_decode(file_get_contents('php://input'));				
+		$data = $this->Admin_model->update_latest_article($obj);			
 		if(isset($obj->id) && !empty($obj->id)) {
-			$data = $this->Admin_model->update_latest_article($obj);			
-			if($data){
-				$status = array('status' => true,"message" => 'Latest Article Edited Successfully');
+			if($data['result'] == '1') {
+				$status = array('status' => true,"message" => 'Latest Article Edited Successfully','row_id'=>$data['insert_id'],'add_type'=>'edit');
 			}
-		} else {
-			$data = $this->Admin_model->update_latest_article($obj);			
-			if($data) {
-				$status = array('status' => true,"message" => 'Latest Article Added Successfully');			
+		} else {		
+			if($data['result'] == '1') {
+				$status = array('status' => true,"message" => 'Latest Article Added Successfully','row_id'=>$data['insert_id'],'add_type'=>'add');			
 			}
 			
 		}		
@@ -420,9 +421,11 @@ public function get_Suplitype() {
 		}		
 		echo json_encode($status);
 	}
-        public function get_new_eb_members() {
-		$this->load->model('Admin_model');	
-		$data = $this->Admin_model->get_new_eb_members();		
+    public function get_new_eb_members() {
+		$obj=json_decode(file_get_contents('php://input'));			
+		$this->load->model('Admin_model');
+		$search_str = (isset($obj->search_value) && !empty($obj->search_value))?$obj->search_value:"";		
+		$data = $this->Admin_model->get_new_eb_members($search_str);		
 
 		if(is_array($data)){
 			echo json_encode($data);
@@ -652,11 +655,11 @@ public function deleteJournalArchive() {
 	if(isset($obj->id) && !empty($obj->id)) {
 		$data = $this->Admin_model->deleteJournalArchive($obj->id);			
 		if($data){
-			$status = array('status' => true,"message" => 'Journal Archive Deleted Successfully');
+			$status = array('status' => true,"message" => 'Journal Archive Deleted Successfully','row_id'=> $obj->id);
 		}
 	} 
 
-	echo json_encode($data);
+	echo json_encode($status);
 }
 public function deleteLatestArticle() {
 	$this->load->model('Admin_model');

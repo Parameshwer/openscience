@@ -133,9 +133,12 @@ class Admin_model extends CI_Model {
 			
 		return $query->result_array();
 	}
-	function get_journal_archives($archive_id) {
-		//$query = $this->db->query('SELECT * FROM  wp_journal_archives WHERE deleted = 1');	
+	function get_journal_archives($search_str) {		
+	if($search_str) {
+		$query = $this->db->query('SELECT a.journal_id, a.id, a.article_title, a.archive_doi,a.archive_year,a.archive_volume, jv.volume_name,a.archive_fulltext,a.archive_pdf,a.archive_in, a.created_date,a.archive_desc, a.article_authors, a.article_link,a.archive_year,a.article_type,a.archive_fulltext,a.archive_pdf,a.supli_pdf, b.journal_name FROM wp_journal_archives a INNER JOIN wp_journals b on a.journal_id = b.id left join wp_journal_volumes jv on jv.id=a.archive_volume WHERE a.deleted = 1 AND a.article_title LIKE "%'.$search_str.'%"');
+	} else {	
 		$query = $this->db->query('SELECT a.journal_id, a.id, a.article_title, a.archive_doi,a.archive_year,a.archive_volume, jv.volume_name,a.archive_fulltext,a.archive_pdf,a.archive_in, a.created_date,a.archive_desc, a.article_authors, a.article_link,a.archive_year,a.article_type,a.archive_fulltext,a.archive_pdf,a.supli_pdf, b.journal_name FROM wp_journal_archives a INNER JOIN wp_journals b on a.journal_id = b.id left join wp_journal_volumes jv on jv.id=a.archive_volume WHERE a.deleted = 1');	
+	}
 
 		//print_r($query);				
 		return $query->result_array();
@@ -252,7 +255,7 @@ class Admin_model extends CI_Model {
 		$supli_pdf = array_key_exists('supli_pdf', $data)?$data->supli_pdf:"";
 		$archive_desc = array_key_exists('archive_desc', $data)?$data->archive_desc:"";
 
-
+		
 		/*$data->archive_pdf = (isset($data->archive_pdf) && !empty($data->archive_pdf))?$data->archive_pdf:'';
 		$data->supli_pdf = (isset($data->supli_pdf) && !empty($data->supli_pdf))?$data->supli_pdf:'';
 		$data->archive_fulltext = (isset($data->archive_fulltext) && !empty($data->archive_fulltext))?$data->archive_fulltext:'';*/
@@ -264,19 +267,23 @@ class Admin_model extends CI_Model {
 		} else {
 		   $query = $this->db->query("INSERT INTO wp_journal_archives (article_title, article_link, article_type, journal_id, archive_desc,archive_doi, archive_year, archive_volume, archive_fulltext, archive_pdf, supli_pdf,archive_in, created_date, updated_date,article_authors, deleted) VALUES ('".$article_title."','".$article_link."','".$article_type."','".$journal_id."','".$temp."','".$archive_doi."','".$archive_year."','".$archive_volume."','".$archive_fulltext."','".$archive_pdf."','".$supli_pdf."','".$archive_in."','".date('Y-m-d')."','".date('Y-m-d')."','".$article_authors."', '1')");
 		}
-		return $query;
-		//return $query->result_array();
+		$result = array();
+		$result['result'] = $query;
+		$result['insert_id'] = $this->db->insert_id();		
+		return $result;
 	}
-	function update_latest_article($data) {
-	//print_r($data);exit;		
+	function update_latest_article($data) {	
 		if(isset($data->id) && !empty($data->id)) {
 			
 		$query = $this->db->query("UPDATE wp_latest_articles SET article_name='".$data->article_name."', pdf_link='".$data->pdf_link."',article_category='".$data->article_category."', article_image='".$data->article_image."',author_name	='".$data->author_name	."',updated_date='".date('Y-m-d')."' WHERE id=$data->id");
 		} else {
 		   $query = $this->db->query("INSERT INTO wp_latest_articles (article_name, pdf_link, article_category,article_image, author_name, updated_date, created_date, deleted) VALUES ('".$data->article_name."','".$data->pdf_link."','".$data->article_category."','".$data->article_image."','".$data->author_name."','".date('Y-m-d')."','".date('Y-m-d')."','1')");
 		}
-		return $query;
-		//return $query->result_array();
+		$result = array();
+		$result['result'] = $query;
+		$result['insert_id'] = $this->db->insert_id();
+		return $result;
+		
 	}
 	function updateTestimonial($data) {				
 		if(isset($data->id) && !empty($data->id)) {
@@ -301,10 +308,14 @@ function get_supli_type_by_journal ($data) {
 			return $query->result_array();
 		}
 	}
-function get_new_eb_members() {
-		$query = $this->db->query('SELECT eb.id,eb.eb_post_slug,eb.eb_journal_slug,eb.journal_id,j.journal_name,eb.eb_member_name,eb.eb_member_photo,eb.eb_member_country,eb.editor_chief,eb.eb_member_desc,eb.updated_date FROM wp_eb_members eb INNER JOIN wp_journals j on eb.journal_id = j.id WHERE eb.deleted="1" ');				
-		return $query->result_array();
-	}
+function get_new_eb_members($search_str) {
+	if($search_str) {
+		$query = $this->db->query('SELECT eb.id,eb.eb_post_slug,eb.eb_journal_slug,eb.journal_id,j.journal_name,eb.eb_member_name,eb.eb_member_photo,eb.eb_member_country,eb.editor_chief,eb.eb_member_desc,eb.updated_date FROM wp_eb_members eb INNER JOIN wp_journals j on eb.journal_id = j.id WHERE eb.deleted="1" AND eb.eb_member_name LIKE "%'.$search_str.'%"');
+	} else {
+		$query = $this->db->query('SELECT eb.id,eb.eb_post_slug,eb.eb_journal_slug,eb.journal_id,j.journal_name,eb.eb_member_name,eb.eb_member_photo,eb.eb_member_country,eb.editor_chief,eb.eb_member_desc,eb.updated_date FROM wp_eb_members eb INNER JOIN wp_journals j on eb.journal_id = j.id WHERE eb.deleted="1"');
+	}						
+	return $query->result_array();
+}
 	function get_new_eb_member($id) {
 		$query = $this->db->query('SELECT * FROM  wp_eb_members WHERE id = "'.$id.'" AND deleted = 1');		
 		return $query->result_array();

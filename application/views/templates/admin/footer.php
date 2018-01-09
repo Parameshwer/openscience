@@ -16,6 +16,7 @@
 <script src="<?php echo base_url();?>public/js/admin/journal.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/journal-posts.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/journal-archives.js"></script>
+<script src="<?php echo base_url();?>public/js/admin/latest-articles.js"></script>
 <script src="<?php echo base_url();?>public/js/admin/ebmembers.js"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-rangy.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>public/js/textAngular-sanitize.min.js" type="text/javascript"></script>

@@ -56,6 +56,11 @@ var base_url = "http://localhost/openscience/";
             title: 'Journal Archives',
             url: "/JournalArchives",            
             templateUrl:base_url+'public/angular-templates/JournalArchives.html'
+        })
+        .state("admin.LatestArticles", {
+            title: 'Latest Articles',
+            url: "/LatestArticles",            
+            templateUrl:base_url+'public/angular-templates/LatestArticles.html'
         })        
               
 });

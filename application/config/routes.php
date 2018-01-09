@@ -64,6 +64,10 @@ $route['get_categories'] = 'admin/get_categories';
 $route['get_journals'] = 'admin/get_journals';
 $route['get_journal_posts'] = 'admin/get_journal_posts';
 $route['get_journal_archives'] = 'admin/get_journal_archives';
+$route['get_LatestArticles'] = 'admin/get_LatestArticles';
+
+$route['update_latest_article'] = 'admin/update_latest_article';
+
 $route['get_new_eb_members'] = 'admin/get_new_eb_members';
 $route['insert_journal'] = 'admin/insert_journal';
 $route['update_journal_page'] = 'admin/update_journal_page';
@@ -71,6 +75,7 @@ $route['update_eb_member'] = 'admin/update_eb_member';
 $route['get_journals_volumes'] = 'admin/get_journals_volumes';
 $route['update_archive'] = 'admin/update_archive';
 $route['deleteEBmember'] = 'admin/deleteEBmember';
+$route['deleteJournalArchive'] = 'admin/deleteJournalArchive';
 
 
 

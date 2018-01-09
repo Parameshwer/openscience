@@ -1,38 +1,17 @@
-<div id="main-wrapper">
-	<div ng-include="'admin1/angular_pages/navbar.html'"></div>
-	<div class="main-wrap">
-		<div ng-include="'admin1/angular_pages/sidebar1.html'"></div>
-		<div class="main-content">
-			<h1 class="page-header">Latest Articles</h1>
-			<div class="create-btn">
-			<a href="#/EditLatestArticle/0" class="btn btn-primary">Create Latest Article</a>
-			<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="searchGrid(search_value)" />
-			</div>			
-			<div>
-			<div class="loader" ng-if="spinner">Loading...</div>
-			<div class="avens-ui-grid">
-			<div ng-if="!spinner && gridOptions1.data.length > 0" ui-grid-pagination ui-grid="gridOptions1" class="grid" ui-grid-auto-resize ng-style="getTableHeight()"></div> 	
-			</div> 
-			<div class="alert alert-danger" role="alert" ng-show="gridOptions1.data.length == '0'">No Records Found</div>			 
-			<!-- <div class="avens-ui-grid">
-				<div ui-grid="gridOptions1" ui-grid-pagination class="grid"></div>
-			</div> -->
-			<!-- <div ng-if="latest_articles">
-				<table class="table table-striped">
-				<tbody>
-				<tr><th>Article Name</th><th>PDF Link</th><th>Article Category</th><th>Article Image</th><th>Author Name</th><th>Created On</th><th></th><th></th></tr></tbody>
-				<tr ng-repeat="(key,val) in latest_articles">				
-				{{val}}
-				<td>{{val.article_name}}</td><td>{{val.pdf_link}}</td><td>{{val.journal_name}}</td><td><img src="http://www.avensonline.org/wp-content/uploads/{{val.article_image}}" height="100px" width="100px" alt="{{val.article_image}}" /></td>
-				<td>{{val.author_name}}</td>
-				<td>{{val.created_date}}</td>
-				<td><a href="#/EditLatestArticle/{{val.id}}">Edit</a></td>
-				<td><a href="">Delete</a></td>
-				</tr>
-				</table>
-				</div>
-				<div ng-show="latest_articles.length == '0'">There are no Latest Articles found.</div> -->
-			</div>
-		</div>
+<div ng-controller="latestArticleController as latestArticleCtrl">	
+<h1 class="page-header">Latest Articles</h1>
+
+<div class="create-btn">
+		<input type="text" name="avens-grid-search" ng-model="search_value" class="avens-grid-search form-control" placeholder="Search" ng-keyup="latestArticleCtrl.searchGrid(search_value)" />
+		<a ng-click="latestArticleCtrl.addJournalArchive()" class="btn btn-primary">Create Latest Article</a>
 	</div>
-</div>
+
+<div class="loader" ng-show="latestArticleCtrl.spinner">Loading...</div>
+<div ng-if="!latestArticleCtrl.spinner && latestArticleCtrl.serviceGrid.data.length > 0" ng-style="latestArticleCtrl.getTableHeight()" id="serviceGrid"						
+	ui-grid-pagination 						
+	ui-grid-edit
+	ui-grid-auto-resize
+	ui-grid="latestArticleCtrl.serviceGrid" class="grid"></div>
+
+	<div class="alert alert-danger" role="alert" ng-show="latestArticleCtrl.serviceGrid.data.length == '0'">No Records Found</div>		
+</div>	

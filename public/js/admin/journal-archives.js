@@ -1,13 +1,16 @@
 app.controller('journalArchiveController', journalArchiveController);
 app.controller('journalArchiveEditController', journalArchiveEditController);
-app.service('journalarticleService', journalarticleService);
+app.controller('journalArticleDeleteController', journalArticleDeleteController);
+app.service('journalarticleEditService', journalarticleEditService);
+app.service('journalarticleDeleteService', journalarticleDeleteService);
 
-journalArchiveController.$inject = ['$scope', '$http', '$uibModal', 'journalarticleService', 'uiGridConstants'];
+journalArchiveController.$inject = ['$scope', '$http', '$uibModal', 'journalarticleEditService','journalarticleDeleteService', 'uiGridConstants'];
 
-function journalArchiveController($scope, $http, $uibModal, journalarticleService, uiGridConstants,$rootScope) {
+function journalArchiveController($scope, $http, $uibModal, journalarticleEditService,journalarticleDeleteService, uiGridConstants,$rootScope) {
     var journalArchiveCtrl = this;
         journalArchiveCtrl.spinner = true;
-    journalArchiveCtrl.editRow = journalarticleService.editRow;
+    journalArchiveCtrl.editRow = journalarticleEditService.editRow;
+    journalArchiveCtrl.deleteRow = journalarticleDeleteService.deleteRow;
 
     journalArchiveCtrl.serviceGrid = {
         enableRowSelection: true,
@@ -54,7 +57,7 @@ function journalArchiveController($scope, $http, $uibModal, journalarticleServic
             field: 'archive_year',
             enableSorting: true,
             enableCellEdit: false,
-            width:120
+            width: 105
         },
         {
             field: 'archive_type',
@@ -95,7 +98,15 @@ function journalArchiveController($scope, $http, $uibModal, journalarticleServic
             field: 'id',
             displayName: '', 
             enableSorting: false,   
-            cellTemplate: '<a ng-click=\"grid.appScope.journalArchiveCtrl.editRow(grid, row)\" class="modify-icon">Edit</a>'
+            cellTemplate: '<a ng-click=\"grid.appScope.journalArchiveCtrl.editRow(grid, row)\" class="modify-icon">Edit</a>',
+            width: 60
+        },
+        {            
+            field: 'id',
+            displayName: '', 
+            enableSorting: false,   
+            cellTemplate: '<a ng-click=\"grid.appScope.journalArchiveCtrl.deleteRow(grid, row)\" class="modify-icon">Delete</a>',
+            width: 60
         }
     ];
 
@@ -132,7 +143,7 @@ function journalArchiveController($scope, $http, $uibModal, journalarticleServic
         journalArchiveCtrl.spinner = true; 
         setTimeout(function() {
             getJournalArchives(search_value);            
-        },1000);
+        },2000);
     }
 
     journalArchiveCtrl.addJournalArchive = function() {
@@ -147,9 +158,10 @@ function journalArchiveController($scope, $http, $uibModal, journalarticleServic
 
 }
 
-journalarticleService.$inject = ['$http', '$rootScope', '$uibModal'];
+journalarticleEditService.$inject = ['$http', '$rootScope', '$uibModal'];
+journalarticleDeleteService.$inject = ['$http', '$rootScope', '$uibModal'];
 
-function journalarticleService($http, $rootScope, $uibModal) {
+function journalarticleEditService($http, $rootScope, $uibModal) {
    
     var service = {};
     service.editRow = editRow;
@@ -172,6 +184,56 @@ function journalarticleService($http, $rootScope, $uibModal) {
     }
 
     return service;
+}
+function journalarticleDeleteService($http, $rootScope, $uibModal) {    
+    var service = {};
+    service.deleteRow = deleteRow;    
+    function deleteRow(grid, row) {
+        $uibModal.open({
+            templateUrl: base_url + 'public/angular-templates/delete-journal-article.html',
+            controller: ['$http', '$uibModalInstance', 'grid', 'row', journalArticleDeleteController],
+            controllerAs: 'journalArchiveCtrl',
+            size: 'xs',
+            resolve: {
+                grid: function() {
+                    return grid;
+                },
+                row: function() {
+                    return row;
+                }
+            }
+        });
+    }
+
+    return service;
+}
+function journalArticleDeleteController ($http, $uibModalInstance, grid, row) {
+    var journalArchiveCtrl = this;    
+    journalArchiveCtrl.entity = angular.copy(row.entity);
+    journalArchiveCtrl.deleteRow = deleteRow;
+
+    function deleteRow()  {
+         $http({
+            url: base_url+"deleteJournalArchive",
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},            
+            data: JSON.stringify(journalArchiveCtrl.entity),
+        })
+        .then(function(response) {            
+            if(response.status) {                
+                console.log(response);
+                journalArchiveCtrl.server_msg = response.data.message;
+                row.entity = angular.extend(row.entity, journalArchiveCtrl.entity);
+                var i = grid.options.data.indexOf(row.entity);
+                grid.options.data.splice(i, 1);
+                
+                setTimeout(function() {
+                    journalArchiveCtrl.server_msg = '';
+                    $uibModalInstance.close(row.entity);
+                },2000);       
+            }
+        }); 
+    }
 }
 
 function journalArchiveEditController($http, $uibModalInstance, grid, row) {
@@ -203,7 +265,8 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
                 console.log(response);
                 journalArchiveCtrl.server_msg = response.data.message;
                 row.entity = angular.extend(row.entity, journalArchiveCtrl.entity);
-                if (response.data.row_id == '0') {
+                if (response.data.add_type == 'add') {
+                    row.entity.id = response.data.row_id;
                     grid.data.push(row.entity);
 
                 }                
@@ -211,22 +274,19 @@ function journalArchiveEditController($http, $uibModalInstance, grid, row) {
                     if(v.id == row.entity.journal_id) {
                         row.entity.journal_name = v.journal_name;                            
                     }
-                });
+                });                
                 angular.forEach(journalArchiveCtrl.journal_volumes, function(v,i) {
-                    if(v.id == row.entity.archive_volume) {
-                        row.entity.archive_volume = v.volume_name;                            
+                    console.log(row.entity.archive_volume);
+                    if(v.id == row.entity.archive_volume) {                        
+                        row.entity.volume_name = v.volume_name;                            
                     }
                 });
-                angular.forEach(journalArchiveCtrl.archive_in, function(v,i) {
-                    if(v.id == row.entity.archive_in) {
-                        row.entity.archive_in = v.name;                            
-                    }
-                });
-                angular.forEach(journalArchiveCtrl.article_type, function(v,i) {
+
+/*                angular.forEach(journalArchiveCtrl.article_type, function(v,i) {
                     if(v.id == row.entity.article_type) {
                         row.entity.article_type = v.name;                            
                     }
-                });
+                });*/
                 
                 setTimeout(function() {
                     journalArchiveCtrl.server_msg = '';

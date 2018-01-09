@@ -13,6 +13,7 @@
                     <div class="postcontent nobottommargin col_last clearfix">  
 					<h3> <?php echo $p_info[0]['post_name']; ?></h3> 
                     <?php 
+                        //print_r($get_archive_info);
                         if(!empty($p_info[0]['post_type']) && isset($p_info[0]['post_type'])) {
                             foreach ($p_info as $key => $value) {
                                 echo '<div class="media"> <div class="media-left pull-left"><img alt="'.$value['eb_member_name'].'" class="media-object" src="'.base_url().'wp-content/uploads/default-user.png" width="100" height="100"></div> <div class="media-body"> <h4 class="media-heading">'.$value['eb_member_name'].'</h4>'.$value['eb_member_desc'].'</div> </div>';

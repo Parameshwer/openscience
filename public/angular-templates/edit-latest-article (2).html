@@ -1,0 +1,121 @@
+<div class="modal-header">
+	<h3 class="modal-title">Edit Journal Archive</h3>
+</div>
+<form class="form-horizontal" enctype="multipart/form-data" name="journal_archive_form" method="post" novalidate
+>	
+<div class="modal-body" style="height: 800px;overflow-y: auto;overflow-x: hidden;">
+	<div class="form-group">
+		<label for="journal_name" class="col-sm-2 control-label">Journal Name</label>
+		<div class="col-sm-10">			
+			<select class="form-control" ng-model="journalArchiveCtrl.entity.journal_id" name="journal_id" required>				
+				<option value="">Select Journal</option>
+				<option ng-selected="{{journal.id == journalArchiveCtrl.entity.journal_id}}" ng-repeat="journal in journalArchiveCtrl.journals" value="{{journal.id}}">{{journal.journal_name}}</option>
+			</select>
+			<span style="color:red" ng-show="journal_archive_form.journal_id.$dirty"><span ng-show="journal_archive_form.journal_id.$error.required">Journal Name is required.</span></span>
+		</div>
+	</div>
+	<div class="form-group" required="">
+		<label for="banner_image" class="col-sm-2 control-label">Archive Content</label>
+		<div class="col-sm-10">								
+			<div class="row text-angular-wrap">
+				<div ng-app="textAngularTest" ng-controller="wysiwygeditor" class="container">
+					<text-angular name="eb_member_desc" ng-model="journalArchiveCtrl.entity.archive_desc"></text-angular>
+				</div>
+				<span style="color:red" ng-show="journal_archive_form.archive_desc.$dirty"><span ng-show="journal_archive_form.archive_desc.$error.required">This field is required.</span></span>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="issn_number" class="col-sm-2 control-label">Article Title</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" ng-model="journalArchiveCtrl.entity.article_title" id="article_title" name="article_title" required>
+			<span style="color:red" ng-show="journal_archive_form.article_title.$dirty"><span ng-show="journal_archive_form.article_title.$error.required">This field is required.</span></span>					
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_doi" class="col-sm-2 control-label">Article link</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="article_link" name="article_link" ng-model="journalArchiveCtrl.entity.article_link">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_authors" class="col-sm-2 control-label">Article authors</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="article_authors" name="article_authors" ng-model="journalArchiveCtrl.entity.article_authors">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_doi" class="col-sm-2 control-label">Article DOI</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="doi_name" name="doi_name" ng-model="journalArchiveCtrl.entity.doi_name">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_doi_link" class="col-sm-2 control-label">Article DOI link</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="doi_link" name="doi_link" ng-model="journalArchiveCtrl.entity.doi_link">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_in" class="col-sm-2 control-label">Archive In</label>
+		<div class="col-sm-10">
+			<!-- <input type="text" class="form-control" id="archive_in" name="archive_in"  ng-model="journalArchiveCtrl.entity.archive_in"> -->
+			<select class="form-control" name="archive_in" id="archive_in" ng-model="journalArchiveCtrl.entity.archive_in">
+				<option ng-repeat="a in journalArchiveCtrl.archive_in" ng-selected="a.id==journalArchiveCtrl.entity.archive_in?'selected':''" value="{{a.id}}">{{a.name}}</option>
+			</select>
+
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_year" class="col-sm-2 control-label">Archive Year</label>
+		<div class="col-sm-10">			
+			<select name="archive_year" id="archive_year" class="form-control" ng-model="journalArchiveCtrl.entity.archive_year">
+			<option value="">Select Year</option>
+				<option ng-repeat="y in journalArchiveCtrl.archive_years" value="{{y}}" ng-selected="journalArchiveCtrl.entity.archive_year==y?'selected':''">{{y}}</option>
+			</select>
+
+		</div>
+	</div>
+	<div class="form-group">							
+		<label for="archive_year" class="col-sm-2 control-label">Article Type</label>
+		<div class="col-sm-10">			
+			<select class="form-control" name="article_type" id="article_type" ng-model="journalArchiveCtrl.entity.article_type">
+				<option value="">Select Article type</option>									
+				<option ng-repeat="v in journalArchiveCtrl.article_type" value="{{v.id}}" ng-selected="journalArchiveCtrl.entity.article_type==v.id?'selected':''">{{v.name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">							
+		<label for="archive_year" class="col-sm-2 control-label">Archive Volume</label>
+		<div class="col-sm-10">			
+			<select class="form-control" name="archive_volume" id="archive_volume" ng-model="journalArchiveCtrl.entity.archive_volume">
+				<option value="">Select Archive</option>									
+				<option ng-repeat="v in journalArchiveCtrl.journal_volumes" value="{{v.id}}" ng-selected="journalArchiveCtrl.entity.archive_volume==v.id?'selected':''">{{v.volume_name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_fulltext" class="col-sm-2 control-label">Archive Fulltext</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="archive_fulltext" name="archive_fulltext" ng-model="journalArchiveCtrl.entity.archive_fulltext">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="archive_pdf" class="col-sm-2 control-label">Archive PDF</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="archive_pdf" name="archive_pdf" ng-model="journalArchiveCtrl.entity.archive_pdf">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="supli_pdf" class="col-sm-2 control-label">S PDF</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="supli_pdf" name="supli_pdf" ng-model="journalArchiveCtrl.entity.supli_pdf">
+		</div>
+	</div>
+</div>
+<div class="modal-footer">			
+	<span class="server_msg">{{journalArchiveCtrl.server_msg}}</span>
+	<button class="btn btn-link" ng-click="$close()">Cancel</button>		
+	<button ng-disabled="!journal_archive_form.journal_id.$dirty && journal_archive_form.journal_id.$invalid ||  !journal_archive_form.archive_volume.$dirty && journal_archive_form.archive_volume.$invalid" class="btn btn-primary" ng-click="journalArchiveCtrl.save()">Save</button>			
+</div>
+</form>	
